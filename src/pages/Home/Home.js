@@ -1,7 +1,8 @@
 
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import Header from '../../components/Header/Header';
 import { StatusBar } from 'react-native-web';
+import styles from '../../assets/scss/index.scss'
 
 export default function Home() {
   return (
@@ -12,10 +13,3 @@ export default function Home() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-});

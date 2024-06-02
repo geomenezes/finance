@@ -6,14 +6,15 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 
 const statusBarHeight = StatusBar.currentHeight ? StatusBar.currentHeight + 22 :  64;
 
-export default function Header({ name }) {
+export default function Header({ name, text }) {
     return (
         <View style={styles.containerHeader}>
             <View style={styles.content}>
-                <Pressable activeOpacity={0.9}>
+                {name && <Pressable activeOpacity={0.9}>
                     <Ionicons name="person-circle-sharp" size={24} color="white" />
-                </Pressable>
-                <Text style={styles.username}>Olá, {name}</Text>
+                </Pressable>}
+                {name && <Text style={styles.username}>Olá, {name}</Text>}
+                {text && <Text style={styles.text_title}>{text}</Text>}
             </View>
         </View>
     )

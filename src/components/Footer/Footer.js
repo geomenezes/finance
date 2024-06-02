@@ -3,6 +3,7 @@ import { Button, Pressable, StatusBar, StyleSheet, Text } from 'react-native'
 import { View } from 'react-native-web'
 import styles from '../../assets/scss/icons.scss'
 import { MaterialIcons } from '@expo/vector-icons';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 const icons = [
     {
@@ -30,14 +31,15 @@ const icons = [
 export default function Footer({ name }) {
     return (
         <View style={styles.container}>
-        {icons.map(e => {
+        {icons.map((e, key) => {
             return (
-                <Button
+                <FontAwesome.Button 
+                    name={e.name}
+                    style={styles.button}
+                    key={key}
                     onPress={() =>
                         navigation.navigate(e.link)
-                    }>
-                        <MaterialIcons name={e.name} size={24} color="black" />
-                </Button>
+                    } />
             )})}
         </View>
     )

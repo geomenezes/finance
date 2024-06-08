@@ -1,16 +1,13 @@
-
 import { Text, View } from 'react-native';
 import Header from '../../components/Header/Header';
-import { StatusBar } from 'react-native-web';
 import styles from '../../assets/scss/index.scss'
 import Footer from '../../components/Footer/Footer';
 
-export default function Home({ navigation }) {
+export default function Spents({ navigation }) {
   return (
     <View style={styles.container}>
-        <Header name="Geovanna" />
-        <Text>Pagina Home</Text>
-        <StatusBar style="auto" />
+        <Header />
+        <Text>Gastos</Text>
         <Footer navigation={navigation} />
     </View>
   );

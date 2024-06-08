@@ -1,8 +1,6 @@
 import React from 'react'
-import { Button, Pressable, StatusBar, StyleSheet, Text } from 'react-native'
 import { View } from 'react-native-web'
 import styles from '../../assets/scss/icons.scss'
-import { MaterialIcons } from '@expo/vector-icons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 const icons = [
@@ -11,24 +9,24 @@ const icons = [
         link: 'Home',
     },
     {
-        name: 'checklist',
+        name: 'list',
         link: 'Quiz',
     },
     {
-        name: 'savings',
-        link: 'x',
+        name: 'money',
+        link: 'Spents',
     },
     {
         name: 'flag',
-        link: 'x',
+        link: 'Investments',
     },
     {
-        name: 'person',
-        link: 'x',
+        name: 'user-o',
+        link: 'Profile',
     }
 ]
 
-export default function Footer({ name }) {
+export default function Footer({ name, navigation }) {
     return (
         <View style={styles.container}>
         {icons.map((e, key) => {

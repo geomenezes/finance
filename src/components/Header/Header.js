@@ -1,6 +1,5 @@
 import React from 'react'
-import { Pressable, StatusBar, StyleSheet, Text } from 'react-native'
-import { View, ImageBackground } from 'react-native-web'
+import { View, ImageBackground, StatusBar, Text } from 'react-native'
 import styles from '../../assets/scss/index.scss'
 import { MaterialIcons } from '@expo/vector-icons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';

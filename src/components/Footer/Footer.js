@@ -1,5 +1,5 @@
 import React from 'react'
-import { View } from 'react-native-web'
+import { View } from 'react-native'
 import styles from '../../assets/scss/icons.scss'
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 

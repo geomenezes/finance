@@ -1,6 +1,7 @@
 .container {
     background-color: #fff;
     flex: 1;
+    min-height: 100%;
 }
 .content {
     flex: 1;
@@ -31,9 +32,11 @@
     display: flex;
 }
 .background {
+    display: flex;
     flex-direction: 'row';
     padding-top: 16px;
     padding-bottom: 60px;
+    justify-content: space-between;
 }
 .goBack {
     background-color: #01464D;

@@ -1,14 +1,12 @@
 .container {
-    height: 100px;
-    width: 35px;
-    display: inline-block;
-    // position: absolute;
-    // bottom: 0;
-    // left: 0;
-    // display: flex;
-    // justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
 }
 .button {
     display: flex;
     background-color: #0DA980;
+    justify-content: center;
+    height: 50px;
+    width: 50px;
 }

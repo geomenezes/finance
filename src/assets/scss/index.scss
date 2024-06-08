@@ -2,22 +2,17 @@
     background-color: #fff;
     flex: 1;
 }
-.containerHeader {
-    background-color: #01464D;
-    flex-direction: 'row';
-    padding-top: 16px;
-    padding-bottom: 44px;
-}
 .content {
     flex: 1;
     align-items: center;
     flex-direction: row;
-    justify-content: space-between;
+    padding: 10px;
 }
 .username {
     font-size: 10;
     color: #fff;
     font-weight: bold;
+    margin-left: 5px;
 }
 .text_title {
     font-size: 10;
@@ -28,8 +23,18 @@
 .buttonUser {
     width: 44px;
     height: 44px;
-    background-color: rgba(255, 255, 0.5);
     justify-content: center;
     align-items: center;
     border-radius: 2px;
+}
+.logout {
+    display: flex;
+}
+.background {
+    flex-direction: 'row';
+    padding-top: 16px;
+    padding-bottom: 60px;
+}
+.goBack {
+    background-color: #01464D;
 }

@@ -6,7 +6,7 @@ import Footer from '../../components/Footer/Footer';
 export default function Investments({ navigation }) {
   return (
     <View style={styles.container}>
-        <Header />
+        <Header navigation={navigation} />
         <Text>Investimentos</Text>
         <Footer navigation={navigation} />
     </View>

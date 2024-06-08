@@ -6,7 +6,7 @@ import Footer from '../../components/Footer/Footer';
 export default function Profile({ navigation }) {
   return (
     <View style={styles.container}>
-        <Header />
+        <Header navigation={navigation} />
         <Text>Perfil</Text>
         <Footer navigation={navigation} />
     </View>

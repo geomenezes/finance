@@ -29,16 +29,18 @@ const icons = [
 export default function Footer({ name, navigation }) {
     return (
         <View style={styles.container}>
-        {icons.map((e, key) => {
-            return (
-                <FontAwesome.Button 
-                    name={e.name}
-                    style={styles.button}
-                    key={key}
-                    onPress={() =>
-                        navigation.navigate(e.link)
-                    } />
-            )})}
+            <View style={styles.content}>
+            {icons.map((e, key) => {
+                return (
+                    <FontAwesome.Button 
+                        name={e.name}
+                        style={styles.button}
+                        key={key}
+                        onPress={() =>
+                            navigation.navigate(e.link)
+                        } />
+                )})}
+            </View>
         </View>
     )
 }

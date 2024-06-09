@@ -13,21 +13,23 @@ export default function Header({ name, text, navigation }) {
     return (
         <View>
             <ImageBackground source={url} style={styles.background}>
-                {navigation &&
-                <FontAwesome.Button 
-                    name='chevron-left'
-                    style={styles.goBack}
-                    onPress={() => navigation.goBack()} /> }
-                {name &&
-                <FontAwesome
-                    name='user-o'
-                    size={18} color="white" />}
-                {name && <>
-                    <Text style={styles.username}>Olá, {name}</Text>
-                    <MaterialIcons name="logout" size={18} color="white" 
-                        style={styles.logout} />
-                </>}
-                {text && <Text style={styles.text_title}>{text}</Text>}
+                <View style={styles.content}>
+                    {navigation &&
+                    <FontAwesome.Button 
+                        name='chevron-left'
+                        style={styles.goBack}
+                        onPress={() => navigation.goBack()} /> }
+                    {name &&
+                    <FontAwesome
+                        name='user-o'
+                        size={18} color="white" />}
+                    {name && <>
+                        <Text style={styles.username}>Olá, {name}</Text>
+                        <MaterialIcons name="logout" size={18} color="white" 
+                            style={styles.logout} />
+                    </>}
+                    {text && <Text style={styles.text_title}>{text}</Text>}
+                </View>
             </ImageBackground>
         </View>
     )

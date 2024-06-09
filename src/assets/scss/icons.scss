@@ -1,4 +1,9 @@
 .container {
+    position: absolute;
+    bottom: 2%;
+    width: 100%;
+}
+.content {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -7,6 +12,5 @@
     display: flex;
     background-color: #0DA980;
     justify-content: center;
-    height: 50px;
-    width: 50px;
+    padding: 10px 5px 10px 15px;
 }

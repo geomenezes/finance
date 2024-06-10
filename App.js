@@ -7,6 +7,7 @@ import Quiz from './src/pages/QuizAPI/Quiz';
 import Spents from './src/pages/Spents/Spents';
 import Investments from './src/pages/Investments/Investments';
 import Profile from './src/pages/Profile/Profile';
+import { DoingQuiz } from './src/pages/QuizAPI/DoingQuiz';
 
 const Stack = createStackNavigator();
 
@@ -28,6 +29,7 @@ export default function App() {
         <Stack.Screen name="Spents" component={Spents} />
         <Stack.Screen name="Investments" component={Investments} />
         <Stack.Screen name="Profile" component={Profile} />
+        <Stack.Screen name="DoingQuiz" component={DoingQuiz} />
       </Stack.Navigator>
     </NavigationContainer>
   );

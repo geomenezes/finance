@@ -1,4 +1,4 @@
-export const resultQuiz = () => [
+export const resultQuiz = [
     {
         id: "conservative",
         name: "Perfil Conservador",
@@ -27,7 +27,7 @@ export const resultQuiz = () => [
     }
 ]
 
-export const questions = () => [
+export const questions = [
     {
         id: 1,
         question: "Qual é o seu nível de experiência com investimentos?",

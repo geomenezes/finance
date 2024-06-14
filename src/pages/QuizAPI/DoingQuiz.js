@@ -36,6 +36,13 @@ export function DoingQuiz({ navigation }) {
         navigation.navigate("ResultQuiz", { profile })
     }
 
+    function changeColor(id) {
+        let element = document.getElementById(id);
+        if (element != null) {
+          element.style.backgroundColor = active ? color : "#0DA980";
+        }
+    }
+
     return (
         <View>
             <Header navigation={navigation} />
@@ -45,10 +52,12 @@ export function DoingQuiz({ navigation }) {
                     {questions[step].alternatives.map((e, key) => (
                         <ButtonChoice 
                             key={key}
+                            id={"button-color-" + key}
                             label={e.label} 
                             onClick={() => {
                                 setCurrentPoint(e.value)
                                 setSeeNext(true)
+                                changeColor("button-color-" + key)
                             }}
                         />
                     ))}

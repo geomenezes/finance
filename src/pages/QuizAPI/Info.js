@@ -11,7 +11,7 @@ export const resultQuiz = [
         id: "moderate",
         name: "Perfil Moderado",
         label: "Você é um investidor que busca um equilíbrio entre " +
-        "segurança e rendimento. Para isso, diversifica seus investimentos" + 
+        "segurança e rendimento. Para isso, diversifica seus investimentos " + 
         "entre opções mais seguras, e opções mais arriscadas, aproveitando as " +
         "oportunidades sem extrapolar nos riscos, é comum que invista em ativos como " +
         "Tesouro Direto, Ações de empresas consolidadas ou Fundos Imobiliários. "
@@ -237,25 +237,25 @@ export const questions = [
             }
         ],
     },
-    {
-        id: 11,
-        question: "Indique em quais tipos de aplicações você já investiu nos últimos dois anos " +
-        "e com que frequência. Você pode assinalar mais de uma alternativa:",
-        alternatives: [
-            {
-                label: "",
-                value: 1
-            },
-            {
-                label: "",
-                value: 2
-            },
-            {
-                label: "",
-                value: 4
-            }
-        ],
-    },
+    // {
+    //     id: 11,
+    //     question: "Indique em quais tipos de aplicações você já investiu nos últimos dois anos " +
+    //     "e com que frequência. Você pode assinalar mais de uma alternativa:",
+    //     alternatives: [
+    //         {
+    //             label: "",
+    //             value: 1
+    //         },
+    //         {
+    //             label: "",
+    //             value: 2
+    //         },
+    //         {
+    //             label: "",
+    //             value: 4
+    //         }
+    //     ],
+    // },
     {
         id: 12,
         question: "Com base nas suas respostas anteriores, por favor, indique o volume " +

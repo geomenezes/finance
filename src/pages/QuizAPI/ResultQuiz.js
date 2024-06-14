@@ -1,4 +1,5 @@
 import { Text, View } from "react-native";
+import styles from '../../assets/scss/quiz.scss'
 
 export default function ResultQuiz ({ route, navigation }) {
 

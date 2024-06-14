@@ -2,7 +2,9 @@ import { Text, View } from "react-native";
 import { questions, resultQuiz } from "./Info";
 import ButtonChoice from "../../components/Buttons/ButtonChoice";
 import { useState } from "react";
-import Button from "../../components/Buttons/Button";
+import styles from '../../assets/scss/quiz.scss'
+import Header from "../../components/Header/Header";
+import ActionButton from "../../components/Buttons/Action";
 
 export function DoingQuiz({ navigation }) {
 
@@ -36,9 +38,10 @@ export function DoingQuiz({ navigation }) {
 
     return (
         <View>
+            <Header navigation={navigation} />
             {
                 <>
-                    <Text>{questions[step].question}</Text>
+                    <Text style={styles.title}>{questions[step].question}</Text>
                     {questions[step].alternatives.map((e, key) => (
                         <ButtonChoice 
                             key={key}
@@ -51,11 +54,13 @@ export function DoingQuiz({ navigation }) {
                     ))}
                 </>
             }
-            {(seeNext && (step + 1 < qtQuestions)) && <Button title="Próximo" onPress={() => {
-                countPoints(currentPoint)
-                nextQuestion()
-            }} />}
-            {(seeNext && !(step + 1 < qtQuestions)) && <Button title="Enviar" onPress={() => result()} />}
+            {(seeNext && (step + 1 < qtQuestions)) && 
+                <ActionButton label="Próximo" onClick={() => {
+                    countPoints(currentPoint)
+                    nextQuestion()
+                }} />}
+            {(seeNext && !(step + 1 < qtQuestions)) && 
+                <ActionButton label="Enviar" onClick={() => result()} />}
         </View>
     )
 }

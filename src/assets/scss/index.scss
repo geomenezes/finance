@@ -1,5 +1,4 @@
 .container {
-    background-color: #fff;
     flex: 1;
     min-height: 100%;
 }
@@ -42,4 +41,16 @@
 }
 .goBack {
     background-color: #01464D;
+}
+.action {
+    display: flex;
+    align-items: center;
+}
+.actionButton {
+    border-radius: 2vw;
+    background-color: #1CAF88;
+    color: #edeaea;
+    padding: 4%;
+    display: flex;
+    align-items: center;
 }

@@ -2,28 +2,28 @@ export const resultQuiz = [
     {
         id: "conservative",
         name: "Perfil Conservador",
-        label: "Você prefere segurança e estabilidade ao invés de grandes lucros. \
-        O investidor conservador prioriza proteger seu dinheiro e evita correr riscos \
-        desnecessários e costuma manter a maior parte do seu dinheiro em investimentos seguros, \
-        como Tesouro Direto, CDB ou LCI/LCA."
+        label: "Você prefere segurança e estabilidade ao invés de grandes lucros. " +
+        "O investidor conservador prioriza proteger seu dinheiro e evita correr riscos " +
+        "desnecessários e costuma manter a maior parte do seu dinheiro em investimentos seguros, " +
+        "como Tesouro Direto, CDB ou LCI/LCA."
     },
     {
         id: "moderate",
         name: "Perfil Moderado",
-        label: "Você é um investidor que busca um equilíbrio entre \
-        segurança e rendimento. Para isso, diversifica seus investimentos \
-        entre opções mais seguras, e opções mais arriscadas, aproveitando as \
-        oportunidades sem extrapolar nos riscos, é comum que invista em ativos como \
-        Tesouro Direto, Ações de empresas consolidadas ou Fundos Imobiliários. "
+        label: "Você é um investidor que busca um equilíbrio entre " +
+        "segurança e rendimento. Para isso, diversifica seus investimentos" + 
+        "entre opções mais seguras, e opções mais arriscadas, aproveitando as " +
+        "oportunidades sem extrapolar nos riscos, é comum que invista em ativos como " +
+        "Tesouro Direto, Ações de empresas consolidadas ou Fundos Imobiliários. "
     },
     {
         id: "audacious",
         name: "Perfil Arrojado",
-        label: "Você é um investidor de perfil arrojado,  marcado por  \
-        ter uma maior tolerância ao risco e uma boa compreensão do mercado, \
-        você se sente confortável em investir em ativos com grandes variações de preço \
-        para alcançar uma rentabilidade expressiva a longo prazo, dessa forma, costuma \
-        investir em Ações de empresas de crescimento, Fundos de investimento em ações ou Mercado de câmbio."
+        label: "Você é um investidor de perfil arrojado,  marcado por  " +
+        "ter uma maior tolerância ao risco e uma boa compreensão do mercado, " +
+        "você se sente confortável em investir em ativos com grandes variações de preço " +
+        "para alcançar uma rentabilidade expressiva a longo prazo, dessa forma, costuma " +
+        "investir em Ações de empresas de crescimento, Fundos de investimento em ações ou Mercado de câmbio."
     }
 ]
 
@@ -194,8 +194,8 @@ export const questions = [
     },
     {
         id: 9,
-        question: "Em relação ao dinheiro que você investiu e aos lucros que ele gera, \
-        em qual dessas situações você se encaixa?",
+        question: "Em relação ao dinheiro que você investiu e aos lucros que ele gera, " +
+        "em qual dessas situações você se encaixa?",
         alternatives: [
             {
                 label: "Eu dependo do dinheiro que ganhou com meus investimentos para complementar minha renda mensal.",
@@ -239,8 +239,8 @@ export const questions = [
     },
     {
         id: 11,
-        question: "Indique em quais tipos de aplicações você já investiu nos últimos dois anos \
-        e com que frequência. Você pode assinalar mais de uma alternativa:",
+        question: "Indique em quais tipos de aplicações você já investiu nos últimos dois anos " +
+        "e com que frequência. Você pode assinalar mais de uma alternativa:",
         alternatives: [
             {
                 label: "",
@@ -258,9 +258,9 @@ export const questions = [
     },
     {
         id: 12,
-        question: "Com base nas suas respostas anteriores, por favor, indique o volume \
-        aproximado que foi destinado para o tipo de aplicação que você já utilizou nos \
-        últimos dois anos.",
+        question: "Com base nas suas respostas anteriores, por favor, indique o volume " +
+        "aproximado que foi destinado para o tipo de aplicação que você já utilizou nos " +
+        "últimos dois anos.",
         alternatives: [
             {
                 label: "Nunca investi",

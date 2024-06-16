@@ -3,6 +3,7 @@ import { View, ImageBackground, StatusBar, Text } from 'react-native'
 import styles from '../../assets/scss/index.scss'
 import { MaterialIcons } from '@expo/vector-icons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import typo from '../../assets/scss/typography.scss'
 
 const statusBarHeight = StatusBar.currentHeight ? StatusBar.currentHeight + 22 :  64;
 
@@ -22,13 +23,14 @@ export default function Header({ name, text, navigation }) {
                     {name &&
                     <FontAwesome
                         name='user-o'
-                        size={18} color="white" />}
+                        size={24} color="white" 
+                        style={{ marginTop: '15px' }} />}
                     {name && <>
-                        <Text style={styles.username}>Olá, {name}</Text>
-                        <MaterialIcons name="logout" size={18} color="white" 
+                        <Text style={typo.hearder_text}>Olá, {name}</Text>
+                        <MaterialIcons name="logout" size={24} color="white" 
                             style={styles.logout} />
                     </>}
-                    {text && <Text style={styles.text_title}>{text}</Text>}
+                    {text && <Text style={typo.hearder_text2}>{text}</Text>}
                 </View>
             </ImageBackground>
         </View>

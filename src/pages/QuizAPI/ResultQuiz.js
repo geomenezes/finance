@@ -2,6 +2,7 @@ import { Image, Text, View } from "react-native";
 import styles from '../../assets/scss/quiz.scss'
 import Header from "../../components/Header/Header";
 import ActionButton from "../../components/Buttons/Action";
+import typo from '../../assets/scss/typography.scss'
 
 export default function ResultQuiz ({ route, navigation }) {
 
@@ -11,7 +12,7 @@ export default function ResultQuiz ({ route, navigation }) {
         <View>
             <Header navigation={navigation} />
             <Text style={styles.title_profile}>{profile.name}</Text>
-            <Text style={{ margin: '10vw'}}>{profile.label}</Text>
+            <Text style={typo.description}>{profile.label}</Text>
             <Image
                 style={styles.imgQuiz}
                 source = {require('../../assets/img/rafiki.png')}

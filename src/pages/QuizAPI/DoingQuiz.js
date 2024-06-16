@@ -2,9 +2,9 @@ import { Text, View } from "react-native";
 import { questions, resultQuiz } from "./Info";
 import ButtonChoice from "../../components/Buttons/ButtonChoice";
 import { useState } from "react";
-import styles from '../../assets/scss/quiz.scss'
 import Header from "../../components/Header/Header";
 import ActionButton from "../../components/Buttons/Action";
+import typo from '../../assets/scss/typography.scss'
 
 export function DoingQuiz({ navigation }) {
 
@@ -81,13 +81,13 @@ export function DoingQuiz({ navigation }) {
             <Header navigation={navigation} />
             {
                 <>
-                    <Text style={styles.title}>{questions[step].question}</Text>
-                    {questions[step]?.label && <Text style={styles.title}>{questions[step].label}</Text>}
+                    <Text style={typo.title}>{questions[step].question}</Text>
+                    {questions[step]?.label && <Text style={typo.title}>{questions[step].label}</Text>}
                     {questions[step].alternatives.map((e, key) => (
                         <ButtonChoice 
                             key={key}
                             id={"button-color-" + key}
-                            label={e.label + " " + e.value} 
+                            label={e.label} 
                             onClick={() => {
                                 setCurrentPoint(e.value)
                                 setSeeNext(true)

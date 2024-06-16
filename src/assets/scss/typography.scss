@@ -8,21 +8,37 @@
 .hearder_text {
     color: #FFF;
     font-family: "Roboto Flex";
-    font-size: 40px;
-    font-style: normal;
+    font-size: 18px;
     font-weight: 600;
+    margin-left: 10px;
+    padding-top: 15px;
+}
+.hearder_text2 {
+    color: #FFF;
+    font-family: "Roboto Flex";
+    font-size: 16px;
+    font-weight: 600;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-top: 15px;
 }
 .description {
-    color: #857777;
+    color: #373535;
     font-family: "Roboto Flex";
-    font-size: 18px;
+    font-size: 20px;
     font-style: normal;
     font-weight: 600;
+    margin: 8vw;
 }
 .title {
+    display: flex;
+    justify-content: center;
+    margin-left: 8vw;
+    margin-right: 5vw;
+
     color: #01464D;
     font-family: "Roboto Flex";
-    font-size: 24px;
+    font-size: 20px;
     font-style: normal;
     font-weight: 700;
 }
@@ -32,7 +48,7 @@
     font-style: normal;
     font-weight: 700;
     color: #0DA980;
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    margin-top: 5vw;
+    display: flex;
+    justify-content: center;
 }

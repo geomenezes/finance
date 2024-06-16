@@ -161,7 +161,7 @@ export const questions = [
                 value: 0
             },
             {
-                label: "Retiraria todo o dinheiro e colocaria na poupança.",
+                label: "Manteria o investimento e esperaria o mercado melhorar.",
                 value: 2
             },
             {
@@ -198,7 +198,7 @@ export const questions = [
         "em qual dessas situações você se encaixa?",
         alternatives: [
             {
-                label: "Eu dependo do dinheiro que ganhou com meus investimentos para complementar minha renda mensal.",
+                label: "Eu dependo do dinheiro que ganho com meus investimentos para complementar minha renda mensal.",
                 value: 0
             },
             {

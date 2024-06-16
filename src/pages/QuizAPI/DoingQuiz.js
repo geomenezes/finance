@@ -13,14 +13,35 @@ export function DoingQuiz({ navigation }) {
     const [points, setPoints] = useState(0);
     const [seeNext, setSeeNext] = useState(false);
     const [currentPoint, setCurrentPoint] = useState(0);
+    const [reference, setReference] = useState([]);
 
     function nextQuestion() {
         setStep(prev => prev + 1)
         setSeeNext(false)
+        cleanButtons(questions[step].alternatives, -1)
     }
 
     function countPoints(point) {
-        setPoints(prev => prev + point)
+        if(reference.length > 0) {
+            let ref = ([...reference, point])
+
+            if(ref.length > ref[0]) {
+                var count = 0;
+                ref.map((e, key) => {
+                    if(key !== 0) {
+                        count += e;
+                    }
+                })
+                
+                if(count < 2) {
+                    setPoints(prev => prev + 1)
+                } else if(count < 5) {
+                    setPoints(prev => prev + 2)
+                } else setPoints(prev => prev + 4)
+
+            } 
+            else setReference(ref)
+        }  else setPoints(prev => prev + point)
     }
 
     function result() {
@@ -36,11 +57,23 @@ export function DoingQuiz({ navigation }) {
         navigation.navigate("ResultQuiz", { profile })
     }
 
-    function changeColor(id) {
-        let element = document.getElementById(id);
+    function changeColor(id, others) {
+        let element = document.getElementById("button-color-" + id);
         if (element != null) {
-          element.style.backgroundColor = active ? color : "#0DA980";
+          element.style.backgroundColor = "#0DA980";
         }
+        cleanButtons(others, id)
+    }
+
+    function cleanButtons(data, id) {
+        data.map((e, key) => {
+            if(key !== id) {
+                let element = document.getElementById("button-color-" + key);
+                if (element != null) {
+                element.style.backgroundColor = "#dbd7d7";
+                }
+            }
+        })
     }
 
     return (
@@ -49,15 +82,18 @@ export function DoingQuiz({ navigation }) {
             {
                 <>
                     <Text style={styles.title}>{questions[step].question}</Text>
+                    {questions[step]?.label && <Text style={styles.title}>{questions[step].label}</Text>}
                     {questions[step].alternatives.map((e, key) => (
                         <ButtonChoice 
                             key={key}
                             id={"button-color-" + key}
-                            label={e.label} 
+                            label={e.label + " " + e.value} 
                             onClick={() => {
                                 setCurrentPoint(e.value)
                                 setSeeNext(true)
-                                changeColor("button-color-" + key)
+                                changeColor(key, questions[step].alternatives)
+                                if(questions[step]?.reference)
+                                    setReference([questions[step]?.reference])
                             }}
                         />
                     ))}
@@ -69,7 +105,10 @@ export function DoingQuiz({ navigation }) {
                     nextQuestion()
                 }} />}
             {(seeNext && !(step + 1 < qtQuestions)) && 
-                <ActionButton label="Enviar" onClick={() => result()} />}
+                <ActionButton label="Enviar" onClick={() => {
+                    countPoints(currentPoint)
+                    result()
+                }} />}
         </View>
     )
 }

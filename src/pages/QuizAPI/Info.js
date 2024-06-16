@@ -237,34 +237,99 @@ export const questions = [
             }
         ],
     },
-    // {
-    //     id: 11,
-    //     question: "Indique em quais tipos de aplicações você já investiu nos últimos dois anos " +
-    //     "e com que frequência. Você pode assinalar mais de uma alternativa:",
-    //     alternatives: [
-    //         {
-    //             label: "",
-    //             value: 1
-    //         },
-    //         {
-    //             label: "",
-    //             value: 2
-    //         },
-    //         {
-    //             label: "",
-    //             value: 4
-    //         }
-    //     ],
-    // },
     {
-        id: 12,
-        question: "Com base nas suas respostas anteriores, por favor, indique o volume " +
-        "aproximado que foi destinado para o tipo de aplicação que você já utilizou nos " +
-        "últimos dois anos.",
+        id: 11,
+        question: "Indique em quais tipos de aplicações você já investiu nos últimos dois anos " +
+        "e com que frequência.",
+        label: "a) Caderneta de poupança",
+        reference: 3,
         alternatives: [
             {
                 label: "Nunca investi",
+                value: 0
+            },
+            {
+                label: "Investi de 1 a 2 vezes",
                 value: 1
+            },
+            {
+                label: "Investi 3 ou mais vezes",
+                value: 1
+            }
+        ],
+    },
+    {
+        id: 12,
+        question: "Indique em quais tipos de aplicações você já investiu nos últimos dois anos " +
+        "e com que frequência.",
+        label: "b) CDB, LCI, LCA, Tesouro Direto",
+        alternatives: [
+            {
+                label: "Nunca investi",
+                value: 0
+            },
+            {
+                label: "Investi de 1 a 2 vezes",
+                value: 2
+            },
+            {
+                label: "Investi 3 ou mais vezes",
+                value: 3
+            }
+        ],
+    },
+    {
+        id: 13,
+        question: "Indique em quais tipos de aplicações você já investiu nos últimos dois anos " +
+        "e com que frequência.",
+        label: "c) Fundos de Investimento, Ações",
+        alternatives: [
+            {
+                label: "Nunca investi",
+                value: 0
+            },
+            {
+                label: "Investi de 1 a 2 vezes",
+                value: 5
+            },
+            {
+                label: "Investi 3 ou mais vezes",
+                value: 6
+            }
+        ],
+    },
+    {
+        id: 14,
+        question: "Com base nas suas respostas anteriores, por favor, indique o volume " +
+        "aproximado que foi destinado para o tipo de aplicação que você já utilizou nos " +
+        "últimos dois anos.",
+        label: "a) Caderneta de poupança",
+        reference: 3,
+        alternatives: [
+            {
+                label: "Nunca investi",
+                value: 0
+            },
+            {
+                label: "Até cinco mil reais",
+                value: 1
+            },
+            {
+                label: "Mais de cinco mil reais",
+                value: 1
+            }
+        ],
+    },
+    {
+        id: 15,
+        question: "Com base nas suas respostas anteriores, por favor, indique o volume " +
+        "aproximado que foi destinado para o tipo de aplicação que você já utilizou nos " +
+        "últimos dois anos.",
+        label: "b) CDB, LCI, LCA, Tesouro Direto",
+        alternatives: [
+            {
+                label: "Nunca investi",
+                value: 0
             },
             {
                 label: "Até cinco mil reais",
@@ -272,7 +337,28 @@ export const questions = [
             },
             {
                 label: "Mais de cinco mil reais",
-                value: 4
+                value: 3
+            }
+        ],
+    },
+    {
+        id: 16,
+        question: "Com base nas suas respostas anteriores, por favor, indique o volume " +
+        "aproximado que foi destinado para o tipo de aplicação que você já utilizou nos " +
+        "últimos dois anos.",
+        label: "c) Fundos de Investimento, Ações",
+        alternatives: [
+            {
+                label: "Nunca investi",
+                value: 0
+            },
+            {
+                label: "Até cinco mil reais",
+                value: 5
+            },
+            {
+                label: "Mais de cinco mil reais",
+                value: 6
             }
         ],
     }

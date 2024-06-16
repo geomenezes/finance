@@ -82,7 +82,6 @@ export function DoingQuiz({ navigation }) {
             {
                 <>
                     <Text style={typo.title}>{questions[step].question}</Text>
-                    {questions[step]?.label && <Text style={typo.title}>{questions[step].label}</Text>}
                     {questions[step].alternatives.map((e, key) => (
                         <ButtonChoice 
                             key={key}

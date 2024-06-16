@@ -23,7 +23,7 @@ export const resultQuiz = [
         "ter uma maior tolerância ao risco e uma boa compreensão do mercado, " +
         "você se sente confortável em investir em ativos com grandes variações de preço " +
         "para alcançar uma rentabilidade expressiva a longo prazo, dessa forma, costuma " +
-        "investir em Ações de empresas de crescimento, Fundos de investimento em ações ou Mercado de câmbio."
+        "investir em Ações de empresas em crescimento, Fundos de investimento em ações ou Mercado de câmbio."
     }
 ]
 
@@ -239,9 +239,7 @@ export const questions = [
     },
     {
         id: 11,
-        question: "Indique em quais tipos de aplicações você já investiu nos últimos dois anos " +
-        "e com que frequência.",
-        label: "a) Caderneta de poupança",
+        question: "Indique a frequência você já investiu nos últimos dois anos em: Caderneta de poupança",
         reference: 3,
         alternatives: [
             {
@@ -260,9 +258,7 @@ export const questions = [
     },
     {
         id: 12,
-        question: "Indique em quais tipos de aplicações você já investiu nos últimos dois anos " +
-        "e com que frequência.",
-        label: "b) CDB, LCI, LCA, Tesouro Direto",
+        question: "Indique a frequência você já investiu nos últimos dois anos em: CDB, LCI, LCA, Tesouro Direto",
         alternatives: [
             {
                 label: "Nunca investi",
@@ -280,9 +276,7 @@ export const questions = [
     },
     {
         id: 13,
-        question: "Indique em quais tipos de aplicações você já investiu nos últimos dois anos " +
-        "e com que frequência.",
-        label: "c) Fundos de Investimento, Ações",
+        question: "Indique a frequência você já investiu nos últimos dois anos em: Fundos de Investimento, Ações",
         alternatives: [
             {
                 label: "Nunca investi",
@@ -300,10 +294,8 @@ export const questions = [
     },
     {
         id: 14,
-        question: "Com base nas suas respostas anteriores, por favor, indique o volume " +
-        "aproximado que foi destinado para o tipo de aplicação que você já utilizou nos " +
-        "últimos dois anos.",
-        label: "a) Caderneta de poupança",
+        question: "Com base nas suas respostas anteriores, indique o volume " +
+        "aproximado que foi destinado nos últimos dois anos para: Caderneta de poupança",
         reference: 3,
         alternatives: [
             {
@@ -323,9 +315,7 @@ export const questions = [
     {
         id: 15,
         question: "Com base nas suas respostas anteriores, por favor, indique o volume " +
-        "aproximado que foi destinado para o tipo de aplicação que você já utilizou nos " +
-        "últimos dois anos.",
-        label: "b) CDB, LCI, LCA, Tesouro Direto",
+        "aproximado que foi destinado nos últimos dois anos para: CDB, LCI, LCA, Tesouro Direto",
         alternatives: [
             {
                 label: "Nunca investi",
@@ -344,9 +334,7 @@ export const questions = [
     {
         id: 16,
         question: "Com base nas suas respostas anteriores, por favor, indique o volume " +
-        "aproximado que foi destinado para o tipo de aplicação que você já utilizou nos " +
-        "últimos dois anos.",
-        label: "c) Fundos de Investimento, Ações",
+        "aproximado que foi destinado nos últimos dois anos para: Fundos de Investimento, Ações",
         alternatives: [
             {
                 label: "Nunca investi",

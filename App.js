@@ -9,13 +9,16 @@ import Investments from './src/pages/Investments/Investments';
 import Profile from './src/pages/Profile/Profile';
 import { DoingQuiz } from './src/pages/QuizAPI/DoingQuiz';
 import ResultQuiz from './src/pages/QuizAPI/ResultQuiz';
+import Login from './src/pages/Login/Login';
+import Register from './src/pages/Login/Register';
+import ForgotPass from './src/pages/Login/ForgotPass';
 
 const Stack = createStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home"
+      <Stack.Navigator initialRouteName="Login"
       screenOptions={{
         headerShown: false
       }}>
@@ -26,6 +29,9 @@ export default function App() {
           //   title: ''
           // }}
         />
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="ForgotPass" component={ForgotPass} />
+        <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="Quiz" component={Quiz} />
         <Stack.Screen name="Spents" component={Spents} />
         <Stack.Screen name="Investments" component={Investments} />

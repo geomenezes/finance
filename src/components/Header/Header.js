@@ -27,7 +27,10 @@ export default function Header({ name, text, navigation }) {
                         style={{ marginTop: '15px' }} />}
                     {name && <>
                         <Text style={typo.hearder_text}>Olá, {name}</Text>
-                        <MaterialIcons name="logout" size={24} color="white" 
+                        <MaterialIcons 
+                            name="logout" 
+                            size={24} 
+                            color="white" 
                             style={styles.logout} />
                     </>}
                     {text && <Text style={typo.hearder_text2}>{text}</Text>}

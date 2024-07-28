@@ -1,5 +1,6 @@
 
-export function post(url, body) {
+export async function post(url, body) {
+
     fetch(url, {
         method: 'POST',
         headers: {
@@ -9,7 +10,7 @@ export function post(url, body) {
         body: JSON.stringify({ body }),
     })
     .then((response) => { return response.json() })
-    .then((json) => console.log(json))
+    .then((json) => { return json })
     .catch((error) => console.error(error));
 }
 
@@ -18,4 +19,19 @@ export async function get(url) {
     .then((response) => response.json())
     .then((json) => { return json })
     .catch((error) => console.error(error));
+}
+
+export async function postB3(url, body) {
+    console.log( )
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: body,
+    })
+    .then(response => { return response.json() })
+    .then(json => { return json })
+    .catch(e => { console.log(e) });
 }

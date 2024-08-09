@@ -5,13 +5,14 @@
 .content {
     flex: 1;
     align-items: center;
+    justify-content: center;
     flex-direction: row;
     padding: 10px;
 }
 .buttonUser {
     width: 44px;
     height: 44px;
-    justify-content: center;
+    justify-content: left;
     align-items: center;
     border-radius: 2px;
 }
@@ -22,7 +23,7 @@
 }
 .background {
     display: flex;
-    flex-direction: 'row';
+    flex-direction: row;
     padding-top: 16px;
     padding-bottom: 20%;
     justify-content: space-between;
@@ -33,7 +34,7 @@
 .action {
     display: flex;
     align-items: center;
-    margin-top: 10%
+    margin-top: 10%;
 }
 .actionButton {
     border-radius: 2vw;
@@ -46,4 +47,16 @@
     font-family: "Roboto Flex";
     font-size: 18px;
     font-weight: 600;
+}
+.centralButton {
+    background-color: #01464D;
+    padding: 10px;
+    border-radius: 5px;
+    align-self: center;
+    margin: 20px 0;
+}
+.buttonText {
+    color: white;
+    font-size: 16px;
+    text-align: center;
 }

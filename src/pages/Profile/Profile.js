@@ -1,23 +1,43 @@
 import React, { useState } from 'react';
 import { Text, View, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
-import scssStyles from '../../assets/scss/index.scss'; // Importação dos estilos SCSS
+import ImagePicker from 'react-native-image-picker';
+import scssStyles from '../../assets/scss/index.scss'; 
 import typo from '../../assets/scss/typography.scss';
 import Footer from '../../components/Footer/Footer';
-import HeaderProfile from '../../components/headerProfile/HeaderProfile';
+import Header from '../../components/Header/Header';
 
 export default function EditProfile({ navigation }) {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [genero, setGenero] = useState('');
   const [datanasc, setDataNasc] = useState({ day: '', month: '', year: '' });
+  const [profileImage, setProfileImage] = useState(null);
 
   const handleSave = () => {
     // Função para salvar os dados alterados
   };
 
+  const handleSelectImage = () => {
+    const options = {
+      mediaType: 'photo',
+      noData: true,
+    };
+
+    ImagePicker.launchImageLibrary(options, (response) => {
+      if (response.didCancel) {
+        console.log('Operação cancelada!');
+      } else if (response.error) {
+        console.log('Erro ao adicionar imagem: ', response.error);
+      } else {
+        setProfileImage(response.assets[0].uri);
+      }
+    });
+  };
+
   return (
     <View style={scssStyles.container}>
       <HeaderProfile navigation={navigation} name={nome} />
+      
       <View style={localStyles.header}>
         <Text style={localStyles.headerTitle}>Editar Perfil</Text>
         <TouchableOpacity onPress={handleSave}>
@@ -25,6 +45,14 @@ export default function EditProfile({ navigation }) {
         </TouchableOpacity>
       </View>
     
+      <TouchableOpacity onPress={handleSelectImage} style={localStyles.profileImageContainer}>
+        {profileImage ? (
+          <Image source={{ uri: profileImage }} style={localStyles.profileImage} />
+        ) : (
+          <Text style={localStyles.addImageText}>Adicionar Foto</Text>
+        )}
+      </TouchableOpacity>
+
       <View style={localStyles.form}>
         <TextInput
           style={localStyles.input}
@@ -114,6 +142,28 @@ const localStyles = StyleSheet.create({
   editIcon: {
     width: 24,
     height: 24,
+  },
+  profileImageContainer: {
+    alignSelf: 'center',
+    marginBottom: 20,
+  },
+  profileImage: {
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+    borderWidth: 2,
+    borderColor: '#CFCFCF',
+  },
+  addImageText: {
+    fontSize: 18,
+    color: '#000',
+    textAlign: 'center',
+    borderRadius: 60,
+    borderWidth: 2,
+    borderColor: '#CFCFCF',
+    width: 120,
+    height: 120,
+    lineHeight: 120,
   },
   form: {
     flex: 1,

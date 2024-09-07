@@ -5,3 +5,24 @@
 .icon_button {
     background-color: #FFFFFF;
 }
+.content_invest{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+    width: 40%;
+}
+.invest {
+    background-color: #C9C6C66B;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    margin: 5px;
+}
+.invest_select {
+    background-color: #9393936B;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    margin: 5px;
+}

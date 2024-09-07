@@ -26,7 +26,7 @@ export default function Home({ navigation }) {
               key={key}
               label={data.name}
               icon={data.icon}
-              onClick={() => navigation.navigate('Learn')}
+              onClick={() => navigation.navigate('Learn', { name: data.name })}
             />
           ))}
         </View>

@@ -3,11 +3,9 @@
     min-height: 100%;
 }
 .content {
-    flex: 1;
-    align-items: center;
-    justify-content: center;
+    display: flex;
     flex-direction: row;
-    padding: 10px;
+    justify-content: space-around;
 }
 .buttonUser {
     width: 44px;
@@ -50,14 +48,21 @@
 }
 .centralButton {
     background-color: #01464D;
-    padding: 10px;
     border-radius: 5px;
     align-self: center;
     margin: 20px 0;
     color: #fff;
+    display: flex;
+    justify-content: center;
 }
 .buttonText {
     color: white;
     font-size: 16px;
     text-align: center;
+}
+.options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 10px;
+    grid-row-gap: 1em;
 }

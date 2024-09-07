@@ -9,14 +9,6 @@ export default function Home({ navigation }) {
   return (
     <View style={styles.container}>
       <Header name="Geovanna" />
-      
-      <View style={styles.content}>
-        <ButtonChoice
-          label="Despesas e planejamento financeiro"
-          onPress={() => navigation.navigate('Spents')}
-          style={styles.centralButton}
-        />
-      </View>
 
       {actionsHome.map((data, key) => (
         <ButtonChoice 

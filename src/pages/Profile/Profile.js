@@ -6,7 +6,7 @@ import typo from '../../assets/scss/typography.scss';
 import Footer from '../../components/Footer/Footer';
 import Header from '../../components/Header/Header';
 
-export default function EditProfile({ navigation }) {
+export default function Profile({ navigation }) {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [genero, setGenero] = useState('');
@@ -36,7 +36,7 @@ export default function EditProfile({ navigation }) {
 
   return (
     <View style={scssStyles.container}>
-      <HeaderProfile navigation={navigation} name={nome} />
+      <Header navigation={navigation} name={nome} />
       
       <View style={localStyles.header}>
         <Text style={localStyles.headerTitle}>Editar Perfil</Text>

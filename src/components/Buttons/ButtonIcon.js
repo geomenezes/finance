@@ -1,18 +1,16 @@
-import { Image, View } from "react-native";
+import { Image, Pressable, Text, View } from "react-native";
 import styles from '../../assets/scss/buttons.scss'
-import Button from "./Button";
 
-export default function ButtonIcon ({ icon, onClick, label, id }) {
+export default function ButtonIcon(props) {
+
+    const { onClick, icon, id } = props;
 
     return (
-        <View style={styles.view}>
-            <Button
-                key={id}
+        <Pressable style={styles.view} onPress={onClick} id={id}>
+            <Image
                 style={styles.icon_button}
-                onPress={onClick}
-                title={label}>
-                <Image source = {icon} />
-            </Button>
-        </View>
+                source={icon}
+            />
+        </Pressable>
     )
 }

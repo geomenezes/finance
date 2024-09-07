@@ -7,7 +7,7 @@ import Footer from '../../components/Footer/Footer';
 import typo from '../../assets/scss/typography.scss';
 
 
-export default function RelatorioGastos({ navigation }) {
+export default function Spents({ navigation }) {
   // Estados para os valores das categorias
   const [valorCasa, setValorCasa] = useState(0);
   const [valorAlimentacao, setValorAlimentacao] = useState(0);

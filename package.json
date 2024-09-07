@@ -15,7 +15,6 @@
     "@react-navigation/stack": "^6.3.29",
     "color-convert": "^2.0.1",
     "expo": "^51.0.32",
-    "expo-cli": "^6.3.10",
     "expo-status-bar": "~1.12.1",
     "global": "^4.4.0",
     "node-sass": "^9.0.0",
@@ -29,7 +28,8 @@
     "react-native-svg": "^15.2.0",
     "react-native-svg-charts": "^5.4.0",
     "react-native-web": "~0.19.6",
-    "react-navigation": "^5.0.0"
+    "react-navigation": "^5.0.0",
+    "upgrade": "^1.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

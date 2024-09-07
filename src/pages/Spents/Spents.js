@@ -52,7 +52,7 @@ export default function Spents({ navigation }) {
 
   return (
     <View style={stylesRelatorio.container}>
-      <Header />
+      <Header navigation={navigation} />
       <View style={stylesRelatorio.header}>
         <Text style={stylesRelatorio.titulo}>Acompanhe o relatório dos seus gastos!</Text>
       </View>
@@ -123,7 +123,7 @@ export default function Spents({ navigation }) {
         </View>
       </View>
 
-      <Footer />
+      <Footer navigation={navigation} />
     </View>
   );
 }

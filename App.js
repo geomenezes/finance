@@ -12,6 +12,7 @@ import ResultQuiz from './src/pages/QuizAPI/ResultQuiz';
 import Login from './src/pages/Login/Login';
 import Register from './src/pages/Login/Register';
 import ForgotPass from './src/pages/Login/ForgotPass';
+import Learn from './src/pages/LearnInvestments.js/Learn';
 
 const Stack = createStackNavigator();
 
@@ -38,6 +39,7 @@ export default function App() {
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="DoingQuiz" component={DoingQuiz} />
         <Stack.Screen name="ResultQuiz" component={ResultQuiz} />
+        <Stack.Screen name="Learn" component={Learn} />
       </Stack.Navigator>
     </NavigationContainer>
   );

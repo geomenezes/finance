@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@expo/metro-runtime": "~3.2.1",
+    "@react-native-community/datetimepicker": "8.0.1",
     "@react-native/metro-config": "^0.73.5",
     "@react-navigation/native": "^6.1.17",
     "@react-navigation/stack": "^6.3.29",
@@ -31,7 +32,8 @@
     "react-native-svg-charts": "^5.4.0",
     "react-native-web": "~0.19.6",
     "react-navigation": "^5.0.0",
-    "upgrade": "^1.1.0"
+    "upgrade": "^1.1.0",
+    "victory-native": "^37.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

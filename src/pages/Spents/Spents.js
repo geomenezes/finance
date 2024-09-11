@@ -53,6 +53,8 @@ export default function Spents({ navigation }) {
   return (
     <View style={stylesRelatorio.container}>
       <Header navigation={navigation} />
+      <View style={stylesRelatorio.content}>
+
       <View style={stylesRelatorio.header}>
         <Text style={stylesRelatorio.titulo}>Acompanhe o relatório dos seus gastos!</Text>
       </View>
@@ -123,6 +125,8 @@ export default function Spents({ navigation }) {
         </View>
       </View>
 
+      </View>
+
       <Footer navigation={navigation} />
     </View>
   );
@@ -131,8 +135,10 @@ export default function Spents({ navigation }) {
 const stylesRelatorio = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
     backgroundColor: '#F5F5F5',
+  },
+  content: {
+    padding: 20,
   },
   titulo: {
     fontSize: 18,

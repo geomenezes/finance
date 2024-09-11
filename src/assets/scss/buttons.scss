@@ -1,6 +1,8 @@
 .view {
     flex: 1;
     max-height: 100%;
+    display: flex;
+    align-items: center;
 }
 .icon_button {
     background-color: #FFFFFF;

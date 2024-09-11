@@ -11,12 +11,14 @@ export default function Home({ navigation }) {
     <View style={styles.container}>
       <Header name="Geovanna" />
 
+    <View style={styles.buttonC}>
       <Button
         style={styles.centralButton}
         onPress={() => navigation.navigate('Spents')}
         title="Despesas e planejamento financeiro"
         icon={require('../../assets/icons/despesas.png')} 
       />
+    </View>
 
       <View style={styles.content}>
       

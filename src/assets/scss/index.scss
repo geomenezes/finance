@@ -46,14 +46,19 @@
     font-size: 18px;
     font-weight: 600;
 }
+.buttonC {
+    margin-top: 60px;
+    margin-bottom: 20px;
+}
 .centralButton {
     background-color: #01464D;
     border-radius: 5px;
     align-self: center;
-    margin: 20px 0;
+    padding: 2%;
     color: #fff;
     display: flex;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: space-between;
 }
 .buttonText {
     color: white;

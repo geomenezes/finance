@@ -1,4 +1,4 @@
-import { Image, Pressable, Text, View } from "react-native";
+import { Image, Pressable } from "react-native";
 import styles from '../../assets/scss/buttons.scss'
 
 export default function ButtonIcon(props) {

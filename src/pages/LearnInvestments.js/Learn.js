@@ -10,7 +10,7 @@ import Simulate from "./Simulate";
 
 export default function Learn({ navigation, route }) {
 
-    const [about, setAbout] = useState(true);
+    const [about, setAbout] = useState(false);
 
     function changeScreen(value) {
 
@@ -27,13 +27,13 @@ export default function Learn({ navigation, route }) {
           <Header navigation={navigation} />
 
                 <View style={button.content_invest}>
-                    <Pressable style={about ? button.invest_select : button.invest} 
-                    onPress={() => changeScreen(0)}>
-                        <Text style={typo.title}>Sobre</Text>
-                    </Pressable>
                     <Pressable style={about ? button.invest : button.invest_select} 
                     onPress={() => changeScreen(1)}>
                         <Text style={typo.title}>Simular</Text>
+                    </Pressable>
+                    <Pressable style={about ? button.invest_select : button.invest} 
+                    onPress={() => changeScreen(0)}>
+                        <Text style={typo.title}>Sobre</Text>
                     </Pressable>
                 </View>
 

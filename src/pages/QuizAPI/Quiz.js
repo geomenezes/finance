@@ -10,12 +10,12 @@ export default function Quiz ({ navigation }) {
             <Header 
                 text="Seja bem-vindo (a) ao teste de perfil de investidor. Deseja iniciar o questionário?"
                 navigation={navigation} />
-                <ButtonChoice label="Sim, vamos lá!" onClick={() => navigation.navigate("DoingQuiz")} />
-                <ButtonChoice label="Não, talvez mais tarde!" onClick={() => navigation.goBack()} />
-                <Image
-                    style={styles.imgQuiz}
-                    source = {require('../../assets/img/list.png')}
-                />
+            <ButtonChoice label="Sim, vamos lá!" onClick={() => navigation.navigate("DoingQuiz")} />
+            <ButtonChoice label="Não, talvez mais tarde!" onClick={() => navigation.goBack()} />
+            <Image
+                style={styles.imgQuiz}
+                source = {require('../../assets/img/list.png')}
+            />
             <Footer navigation={navigation} />
         </View>
       );

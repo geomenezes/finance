@@ -10,21 +10,17 @@
 .content_invest{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    padding: 10px;
-    width: 40%;
+    justify-content: center;
+    margin-bottom: 30px;
+    margin: 10px;
 }
 .invest {
     background-color: #C9C6C66B;
-    border-radius: 5px;
-    display: flex;
-    justify-content: center;
-    margin: 5px;
+    border-radius: 10px;
+    padding: 10px;
 }
 .invest_select {
     background-color: #9393936B;
-    border-radius: 5px;
-    display: flex;
-    justify-content: center;
-    margin: 5px;
+    border-radius: 10px;
+    padding: 10px;
 }

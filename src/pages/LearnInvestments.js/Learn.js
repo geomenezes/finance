@@ -29,11 +29,11 @@ export default function Learn({ navigation, route }) {
                 <View style={button.content_invest}>
                     <Pressable style={about ? button.invest : button.invest_select} 
                     onPress={() => changeScreen(1)}>
-                        <Text style={typo.title}>Simular</Text>
+                        <Text style={typo.textCenter}>Simular</Text>
                     </Pressable>
                     <Pressable style={about ? button.invest_select : button.invest} 
                     onPress={() => changeScreen(0)}>
-                        <Text style={typo.title}>Sobre</Text>
+                        <Text style={typo.textCenter}>Sobre</Text>
                     </Pressable>
                 </View>
 

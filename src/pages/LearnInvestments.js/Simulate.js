@@ -2,12 +2,20 @@ import { Text, TextInput, View } from "react-native";
 import { useState } from "react";
 import styles from "../../assets/scss/input.scss"
 import index from '../../assets/scss/index.scss';
+import buttons from '../../assets/scss/buttons.scss';
+import Button from "../../components/Buttons/Button";
 
 export default function Simulate({ navigation }) {
   
   const [data, setData] = useState({ day: '', month: '', year: '' });
   const [invest, setInvest] = useState('');
   const [rescue, setRescue] = useState('');
+  const [result, setResult] = useState(false);
+
+
+  function calcResult() {
+    setResult(true)
+  }
   
     return (
       <View style={index.content2}>
@@ -37,7 +45,12 @@ export default function Simulate({ navigation }) {
 
         <View>
           <Text>Rentabilidade</Text>
-
+          <TextInput
+            style={styles.input}
+            value={0.003}
+            // onChangeText={(text) => setInvest(text)}
+            editable='false'
+          />
         </View>
 
         <View>
@@ -54,6 +67,18 @@ export default function Simulate({ navigation }) {
             onChangeText={(text) => setRescue(text)}
           />
         </View>
-      </View>
+
+        <Button 
+          onPress={() => calcResult()}
+          title="Calcular"
+          style={buttons.calc} />
+
+        {result &&
+          <View>
+            <Text>Resultado Estimado</Text>
+          </View>
+        }
+
+        </View>
     );
   }

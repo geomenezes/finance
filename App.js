@@ -13,6 +13,8 @@ import Login from './src/pages/Login/Login';
 import Register from './src/pages/Login/Register';
 import ForgotPass from './src/pages/Login/ForgotPass';
 import Learn from './src/pages/LearnInvestments.js/Learn';
+import AddSpents from './src/pages/Spents/AddSpents';
+
 
 const Stack = createStackNavigator();
 
@@ -35,6 +37,7 @@ export default function App() {
         <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="Quiz" component={Quiz} />
         <Stack.Screen name="Spents" component={Spents} />
+        <Stack.Screen name="AddSpents" component={AddSpents} />
         <Stack.Screen name="Investments" component={Investments} />
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="DoingQuiz" component={DoingQuiz} />

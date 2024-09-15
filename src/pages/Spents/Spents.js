@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Image, TextInput, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Image, TextInput, Dimensions, TouchableOpacity } from 'react-native';
 import { VictoryPie } from 'victory-native'; 
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
@@ -23,13 +23,11 @@ export default function Spents({ navigation }) {
     formatarValor(valorLazer) + 
     formatarValor(valorOutros);
 
-  // Cálculo do percentual de cada categoria
   const calcularPercentual = (valor) => {
     if (totalGastos === 0) return 0;
     return ((formatarValor(valor) / totalGastos) * 100).toFixed(2);
   };
 
-  // Dados para o gráfico
   const screenWidth = Dimensions.get('window').width;
 
   const dadosGrafico = [
@@ -66,7 +64,7 @@ export default function Spents({ navigation }) {
         colorScale={dadosGrafico.map(item => item.cor)}
         style={{ labels: { fill: "black" } }}
         padAngle={3}
-        innerRadius={40} // Cria o gráfico de rosca
+        innerRadius={40} 
         width={screenWidth}
         height={220}
       />
@@ -125,6 +123,17 @@ export default function Spents({ navigation }) {
         </View>
       </View>
 
+      {/* Botão de "+"*/}
+      <TouchableOpacity 
+        style={stylesRelatorio.addButton} 
+        onPress={() => navigation.navigate("AddSpents")}
+      >
+        <Image 
+          source={require('../../assets/img/plusSpents.png')} 
+          style={stylesRelatorio.addButtonImage} 
+        />
+      </TouchableOpacity>
+
       </View>
 
       <Footer navigation={navigation} />
@@ -139,6 +148,7 @@ const stylesRelatorio = StyleSheet.create({
   },
   content: {
     padding: 20,
+    flex: 1,
   },
   titulo: {
     fontSize: 18,
@@ -200,5 +210,22 @@ const stylesRelatorio = StyleSheet.create({
   categoriaPorcentagem: {
     fontSize: 14,
     color: '#757575',
+  },
+  addButton: {
+    backgroundColor: 'transparent',
+    width: 50,
+    height: 50,
+    borderRadius: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    bottom: 20,
+    right: 20,
+    elevation: 5,
+  },
+  addButtonImage: {
+    width: 60,
+    height: 60,
+    resizeMode: 'contain',
   },
 });

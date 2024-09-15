@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import { Text, View, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
-import ImagePicker from 'react-native-image-picker';
-import scssStyles from '../../assets/scss/index.scss'; 
-import typo from '../../assets/scss/typography.scss';
+import { launchImageLibrary } from 'react-native-image-picker'; // Certifique-se de importar corretamente
 import Footer from '../../components/Footer/Footer';
-import Header from '../../components/Header/Header';
+import Header from '../../components/Header/Header'; // Substitua por um cabeçalho alternativo ou crie um novo
 
-export default function Profile({ navigation }) {
+export default function EditProfile({ navigation }) {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [genero, setGenero] = useState('');
@@ -15,6 +13,7 @@ export default function Profile({ navigation }) {
 
   const handleSave = () => {
     // Função para salvar os dados alterados
+    console.log('Dados salvos:', { nome, email, genero, datanasc });
   };
 
   const handleSelectImage = () => {
@@ -23,28 +22,28 @@ export default function Profile({ navigation }) {
       noData: true,
     };
 
-    ImagePicker.launchImageLibrary(options, (response) => {
+    launchImageLibrary(options, (response) => {
       if (response.didCancel) {
         console.log('Operação cancelada!');
-      } else if (response.error) {
-        console.log('Erro ao adicionar imagem: ', response.error);
-      } else {
+      } else if (response.errorCode) {
+        console.log('Erro ao adicionar imagem: ', response.errorMessage);
+      } else if (response.assets && response.assets.length > 0) {
         setProfileImage(response.assets[0].uri);
       }
     });
   };
 
   return (
-    <View style={scssStyles.container}>
-      <Header navigation={navigation} name={nome} />
-      
+    <View style={localStyles.container}>
+      <Header navigation={navigation} title="Editar Perfil" />
+
       <View style={localStyles.header}>
         <Text style={localStyles.headerTitle}>Editar Perfil</Text>
         <TouchableOpacity onPress={handleSave}>
           <Image source={require('../../assets/img/edit.png')} style={localStyles.editIcon} />
         </TouchableOpacity>
       </View>
-    
+
       <TouchableOpacity onPress={handleSelectImage} style={localStyles.profileImageContainer}>
         {profileImage ? (
           <Image source={{ uri: profileImage }} style={localStyles.profileImage} />
@@ -72,32 +71,32 @@ export default function Profile({ navigation }) {
           <TouchableOpacity
             style={[
               localStyles.generoBox,
-              genero === 'F' && localStyles.generoSelecionado
+              genero === 'F' && localStyles.generoSelecionado,
             ]}
             onPress={() => setGenero('F')}
           >
-            <Text style={localStyles.generoTexto}>F</Text>
+            <Text style={localStyles.generoTexto}>Feminino</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={[
               localStyles.generoBox,
-              genero === 'M' && localStyles.generoSelecionado
+              genero === 'M' && localStyles.generoSelecionado,
             ]}
             onPress={() => setGenero('M')}
           >
-            <Text style={localStyles.generoTexto}>M</Text>
+            <Text style={localStyles.generoTexto}>Masculino</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={[
               localStyles.generoBox,
-              genero === 'Outro' && localStyles.generoSelecionado
+              genero === 'Outro' && localStyles.generoSelecionado,
             ]}
             onPress={() => setGenero('Outro')}
           >
             <Text style={localStyles.generoTexto}>Outro</Text>
           </TouchableOpacity>
         </View>
-        <View style={localStyles.DataNascContainer}>
+        <View style={localStyles.dataNascContainer}>
           <TextInput
             style={localStyles.inputDataNasc}
             placeholder="DD"
@@ -118,6 +117,7 @@ export default function Profile({ navigation }) {
           />
         </View>
       </View>
+
       <Footer navigation={navigation} />
     </View>
   );
@@ -169,7 +169,7 @@ const localStyles = StyleSheet.create({
     flex: 1,
   },
   input: {
-    backgroundColor: '#CFCFCF',
+    backgroundColor: '#F0F0F0',
     borderRadius: 10,
     padding: 10,
     marginBottom: 15,
@@ -181,7 +181,7 @@ const localStyles = StyleSheet.create({
     marginBottom: 15,
   },
   generoBox: {
-    backgroundColor: '#CFCFCF',
+    backgroundColor: '#F0F0F0',
     borderRadius: 10,
     padding: 10,
     alignItems: 'center',
@@ -195,16 +195,16 @@ const localStyles = StyleSheet.create({
     fontSize: 16,
     color: '#000',
   },
-  DataNascContainer: {
+  dataNascContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
   inputDataNasc: {
-    backgroundColor: '#CFCFCF',
+    backgroundColor: '#F0F0F0',
     borderRadius: 10,
     padding: 10,
-    marginBottom: 15,
     fontSize: 16,
     width: '30%',
+    textAlign: 'center',
   },
 });

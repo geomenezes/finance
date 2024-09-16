@@ -219,7 +219,7 @@ const stylesRelatorio = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
-    bottom: 20,
+    bottom: 80,
     right: 20,
     elevation: 5,
   },

@@ -3,7 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Picker, Alert } fr
 import Footer from '../../components/Footer/Footer';
 import Header from '../../components/Header/Header';
 
-export default function AddSpents() {
+export default function AddSpents({ navigation }) {
   const [tipoLancamento, setTipoLancamento] = useState(null);
   const [recorrencia, setRecorrencia] = useState(null);
   const [parceladoDesabilitado, setParceladoDesabilitado] = useState(false);
@@ -39,7 +39,10 @@ export default function AddSpents() {
 
   return (
     <View style={styles.container}>
+      <Header navigation={navigation} />
       <Text style={styles.header}>Acompanhe o relatório dos seus gastos!</Text>
+      
+      <View style={styles.content}>
 
       <TextInput 
         style={[styles.input, styles.descricaoInput]} 
@@ -140,6 +143,10 @@ export default function AddSpents() {
       <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
         <Text style={styles.saveButtonText}>Salvar</Text>
       </TouchableOpacity>
+
+      </View>
+
+      <Footer navigation={navigation} />
     </View>
   );
 }
@@ -147,8 +154,11 @@ export default function AddSpents() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
     backgroundColor: '#F5F5F5'
+  },
+  content: {
+    padding: 20,
+    flex: 1,
   },
   header: {
     fontFamily: 'Roboto Flex',
@@ -247,4 +257,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 3,
   },
+  saveButtonText: {
+    color: '#fff',
+  }
 });

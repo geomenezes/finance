@@ -36,6 +36,7 @@ export default function EditProfile({ navigation }) {
   return (
     <View style={localStyles.container}>
       <Header navigation={navigation} title="Editar Perfil" />
+      <View style={localStyles.content}>
 
       <View style={localStyles.header}>
         <Text style={localStyles.headerTitle}>Editar Perfil</Text>
@@ -118,6 +119,8 @@ export default function EditProfile({ navigation }) {
         </View>
       </View>
 
+      </View>
+
       <Footer navigation={navigation} />
     </View>
   );
@@ -126,8 +129,11 @@ export default function EditProfile({ navigation }) {
 const localStyles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
     backgroundColor: '#fff',
+  },
+  content: {
+    padding: 20,
+    flex: 1,
   },
   header: {
     flexDirection: 'row',

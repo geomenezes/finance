@@ -37,12 +37,12 @@ export default function Learn({ navigation, route }) {
                     </Pressable>
                 </View>
 
-                <Text style={typo.title}>{route.params.name}</Text>
+                <Text style={typo.title}>{route.params.label}</Text>
 
                 {about ? 
-                    <About />
+                    <About type={route.params.name} />
                 :
-                    <Simulate />
+                    <Simulate type={route.params.name} />
                 }
 
           <Footer navigation={navigation} />

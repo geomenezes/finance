@@ -2,23 +2,47 @@ import { Text, TextInput, View } from "react-native";
 import { useState } from "react";
 import styles from "../../assets/scss/input.scss"
 import index from '../../assets/scss/index.scss';
-import buttons from '../../assets/scss/buttons.scss';
+import button from "../../assets/scss/buttons.scss"
+import typo from "../../assets/scss/typography.scss"
 import Button from "../../components/Buttons/Button";
+import { Pressable } from "react-native";
 
-export default function Simulate({ navigation }) {
+export default function Simulate({ type }) {
   
   const [data, setData] = useState({ day: '', month: '', year: '' });
   const [invest, setInvest] = useState('');
   const [rescue, setRescue] = useState('');
-  const [result, setResult] = useState(false);
+  const [seeResult, setSeeResult] = useState(false);
+  const [result, setResult] = useState(0);
+  const [profitability, setProfitability] = useState(0);
+  const [prefixado, setPrefixado] = useState(true);
 
+  const month = new Date().getMonth() + 1;
+  const year = new Date().getFullYear();
 
   function calcResult() {
-    setResult(true)
+    let r;
+    if(prefixado) {
+      r = (invest*profitability)/100
+    }
+    setResult(r)
+    setSeeResult(true)
   }
   
     return (
       <View style={index.content2}>
+
+        {type == 'tesouro' && 
+        <View style={button.content_invest}>
+            <Pressable style={prefixado ? button.invest_select : button.invest} 
+            onPress={() => setPrefixado(true)}>
+                <Text style={typo.textCenter}>Prefixado</Text>
+            </Pressable>
+            <Pressable style={prefixado ? button.invest : button.invest_select} 
+            onPress={() => setPrefixado(false)}>
+                <Text style={typo.textCenter}>Pós-fixado</Text>
+            </Pressable>
+        </View>}
         
         <Text>Vencimento</Text>
         
@@ -47,9 +71,9 @@ export default function Simulate({ navigation }) {
           <Text>Rentabilidade</Text>
           <TextInput
             style={styles.input}
-            value={0.003}
-            // onChangeText={(text) => setInvest(text)}
-            editable='false'
+            value={profitability}
+            onChangeText={(text) => setProfitability(text)}
+            // editable='false'
           />
         </View>
 
@@ -71,11 +95,11 @@ export default function Simulate({ navigation }) {
         <Button 
           onPress={() => calcResult()}
           title="Calcular"
-          style={buttons.calc} />
+          style={button.calc} />
 
-        {result &&
+        {seeResult &&
           <View>
-            <Text>Resultado Estimado</Text>
+            <Text>Resultado Estimado: {result}</Text>
           </View>
         }
 

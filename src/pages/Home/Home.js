@@ -26,9 +26,9 @@ export default function Home({ navigation }) {
           {actionsHome.map((data, key) => (
             <ButtonChoice 
               key={key}
-              label={data.name}
+              label={data.label}
               icon={data.icon}
-              onClick={() => navigation.navigate('Learn', { name: data.name })}
+              onClick={() => navigation.navigate('Learn', { name: data.name, label: data.label })}
             />
           ))}
         </View>
@@ -42,27 +42,33 @@ export default function Home({ navigation }) {
 
 const actionsHome = [
   {
-    name: "Previdência Privada",
+    label: "Previdência Privada",
+    name: "previdencia",
     icon: require('../../assets/icons/previdencia.png'),
   },
   {
-    name: "Caderneta de Poupança",
+    label: "Caderneta de Poupança",
+    name: "poupanca",
     icon: require('../../assets/icons/poupanca.png'),
   },
   {
-    name: "Tesouro Direto",
+    label: "Tesouro Direto",
+    name: "tesouro",
     icon: require('../../assets/icons/tesouro.png'),
   },
   {
-    name: "Fundos de Investimento",
+    label: "Fundos de Investimento",
+    name: "fundos",
     icon: require('../../assets/icons/fundos.png'),
   },
   {
-    name: "Renda Fixa",
+    label: "Renda Fixa",
+    name: "fixa",
     icon: require('../../assets/icons/fixa.png'),
   },
   {
-    name: "Renda Variável",
+    label: "Renda Variável",
+    name: "variavel",
     icon: require('../../assets/icons/variavel.png'),
   }
 ];

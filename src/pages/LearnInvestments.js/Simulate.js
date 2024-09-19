@@ -1,30 +1,53 @@
 import { Text, TextInput, View } from "react-native";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "../../assets/scss/input.scss"
 import index from '../../assets/scss/index.scss';
 import button from "../../assets/scss/buttons.scss"
 import typo from "../../assets/scss/typography.scss"
 import Button from "../../components/Buttons/Button";
 import { Pressable } from "react-native";
+import { getSelic } from "../../services/Rates";
 
 export default function Simulate({ type }) {
   
-  const [data, setData] = useState({ day: '', month: '', year: '' });
-  const [invest, setInvest] = useState('');
-  const [rescue, setRescue] = useState('');
+  const [date, setDate] = useState({ day: '', month: '', year: '' });
+  const [invest, setInvest] = useState();
+  const [rescue, setRescue] = useState();
   const [seeResult, setSeeResult] = useState(false);
   const [result, setResult] = useState(0);
-  const [profitability, setProfitability] = useState(0);
+  const [profitability, setProfitability] = useState();
   const [prefixado, setPrefixado] = useState(true);
+  const [period, setPeriod] = useState(0);
+  const [selic, setSelic] = useState(0);
 
   const month = new Date().getMonth() + 1;
   const year = new Date().getFullYear();
 
+  useEffect(() => {
+
+    const asyncFn = async () => {
+      var value = await getSelic()
+      setSelic(Number(value[0]?.valor));
+    };
+
+    asyncFn();
+  }, []);
+
   function calcResult() {
-    let r;
-    if(prefixado) {
-      r = (invest*profitability)/100
+    var r;
+    var months = 0;
+
+    months += Number(date.month);
+    months += 12 - month;
+    if(Number(date.year) - year > 1) {
+      months += ((Number(date.year) - 1) - year) * 12;
     }
+    
+    montantePorMes = invest*months
+    rentabilidade = prefixado ? (profitability/100) : selic;
+    r = montantePorMes + (montantePorMes*rentabilidade)
+    
+    setPeriod(months)
     setResult(r)
     setSeeResult(true)
   }
@@ -47,33 +70,33 @@ export default function Simulate({ type }) {
         <Text>Vencimento</Text>
         
         <View style={styles.inputDateV}>
-          <TextInput
+          {/* <TextInput
             style={styles.inputDate}
             placeholder="DD"
-            value={data.day}
-            onChangeText={(text) => setData({ ...data, day: text })}
-          />
+            value={date.day}
+            onChangeText={(text) => setDate({ ...date, day: text })}
+          /> */}
           <TextInput
             style={styles.inputDate}
             placeholder="MM"
-            value={data.month}
-            onChangeText={(text) => setData({ ...data, month: text })}
+            value={date.month}
+            onChangeText={(text) => setDate({ ...date, month: text })}
           />
           <TextInput
             style={styles.inputDate}
             placeholder="AAAA"
-            value={data.year}
-            onChangeText={(text) => setData({ ...data, year: text })}
+            value={date.year}
+            onChangeText={(text) => setDate({ ...date, year: text })}
           />
         </View>
 
-        <View>
+        <View pointerEvents={prefixado ? '' : 'none'}>
           <Text>Rentabilidade</Text>
           <TextInput
             style={styles.input}
-            value={profitability}
+            value={prefixado ? profitability : selic*100}
             onChangeText={(text) => setProfitability(text)}
-            // editable='false'
+            placeholder=" %"
           />
         </View>
 
@@ -84,12 +107,12 @@ export default function Simulate({ type }) {
             value={invest}
             onChangeText={(text) => setInvest(text)}
           />
-          <Text>Quanto você quer resgatar no futuro?</Text>
+          {/* <Text>Quanto você quer resgatar no futuro?</Text>
           <TextInput
             style={styles.input}
             value={rescue}
             onChangeText={(text) => setRescue(text)}
-          />
+          /> */}
         </View>
 
         <Button 
@@ -99,7 +122,8 @@ export default function Simulate({ type }) {
 
         {seeResult &&
           <View>
-            <Text>Resultado Estimado: {result}</Text>
+            <Text style={{ fontSize: '15px' }}>Em {period} meses o resultado estimado é R$ {result} *</Text>
+            <Text>*Valor Bruto</Text>
           </View>
         }
 

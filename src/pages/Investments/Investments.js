@@ -5,23 +5,21 @@ import Footer from '../../components/Footer/Footer';
 import typo from '../../assets/scss/typography.scss'
 import { get } from '../../services/Services';
 import { useEffect, useState } from 'react';
+import { getSelic } from '../../services/Rates';
 
 export default function Investments({ navigation }) {
 
   const [selic, setSelic] = useState([]);
 
   useEffect(() => {
-    getSelic()
+    
+    const asyncFn = async () => {
+      setSelic(await getSelic());
+    };
+
+    asyncFn();
   }, []);
-
-  function getSelic() {
-    get("https://api.bcb.gov.br/dados/serie/bcdata.sgs.11/dados/ultimos/1?formato=json")
-    .then((data) => {
-      setSelic(data)
-      console.log(data)
-    })
-  }
-
+  
   return (
     <View style={styles.container}>
         <Header navigation={navigation} />

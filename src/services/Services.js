@@ -22,7 +22,7 @@ export async function get(url) {
 }
 
 export async function postB3(url, body) {
-    console.log( )
+
     fetch(url, {
         method: 'POST',
         headers: {

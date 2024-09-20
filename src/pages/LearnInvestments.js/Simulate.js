@@ -27,7 +27,11 @@ export default function Simulate({ type }) {
 
     const asyncFn = async () => {
       var value = await getSelic()
-      setSelic(Number(value[0]?.valor));
+      var taxa = Number(value[0]?.valor)
+      // taxa = (1+taxa)**(30-1)
+      // taxa = (1+taxa)**(12-1)
+      console.log(taxa)
+      setSelic(taxa);
     };
 
     asyncFn();
@@ -124,6 +128,7 @@ export default function Simulate({ type }) {
           <View>
             <Text style={{ fontSize: '15px' }}>Em {period} meses o resultado estimado é R$ {result} *</Text>
             <Text>*Valor Bruto</Text>
+            <Text style={{ fontSize: '15px' }}>Com base na Taxa Selic a {selic} %</Text>
           </View>
         }
 

@@ -19,36 +19,51 @@ export default function Simulate({ type }) {
   const [prefixado, setPrefixado] = useState(true);
   const [period, setPeriod] = useState(0);
   const [selic, setSelic] = useState(0);
+  const [taxaIsFixed, setTaxaIsFixed] = useState(false);
 
   const month = new Date().getMonth() + 1;
   const year = new Date().getFullYear();
 
   useEffect(() => {
 
+    if(type == 'poupanca')
+      setProfitability(0.5)
+
     const asyncFn = async () => {
       var value = await getSelic()
       var taxa = Number(value[0]?.valor)
       // taxa = (1+taxa)**(30-1)
       // taxa = (1+taxa)**(12-1)
-      console.log(taxa)
       setSelic(taxa);
     };
 
     asyncFn();
   }, []);
 
+  useEffect(() => {
+
+    if(type == 'poupanca' || (type == 'tesouro' && !prefixado))
+      setTaxaIsFixed(true)
+
+    if (type == 'tesouro' && !prefixado)
+      setProfitability(selic*100)
+
+  }, [prefixado]);
+
   function calcResult() {
     var r;
     var months = 0;
 
     months += Number(date.month);
-    months += 12 - month;
-    if(Number(date.year) - year > 1) {
-      months += ((Number(date.year) - 1) - year) * 12;
+    if(type !== 'poupanca') {
+      months += 12 - month;
+      if(Number(date.year) - year > 1) {
+        months += ((Number(date.year) - 1) - year) * 12;
+      }
     }
     
     montantePorMes = invest*months
-    rentabilidade = prefixado ? (profitability/100) : selic;
+    rentabilidade = profitability/100;
     r = montantePorMes + (montantePorMes*rentabilidade)
     
     setPeriod(months)
@@ -70,42 +85,58 @@ export default function Simulate({ type }) {
                 <Text style={typo.textCenter}>Pós-fixado</Text>
             </Pressable>
         </View>}
-        
-        <Text>Vencimento</Text>
-        
-        <View style={styles.inputDateV}>
-          {/* <TextInput
-            style={styles.inputDate}
-            placeholder="DD"
-            value={date.day}
-            onChangeText={(text) => setDate({ ...date, day: text })}
-          /> */}
-          <TextInput
-            style={styles.inputDate}
-            placeholder="MM"
-            value={date.month}
-            onChangeText={(text) => setDate({ ...date, month: text })}
-          />
-          <TextInput
-            style={styles.inputDate}
-            placeholder="AAAA"
-            value={date.year}
-            onChangeText={(text) => setDate({ ...date, year: text })}
-          />
-        </View>
+        {type == 'poupanca' ?
+        <>
+          <Text>Quanto tempo deseja deixar seu dinheiro investido?</Text>
+                  
+          <View style={styles.inputDateV}>
+            <TextInput
+              style={styles.inputDate}
+              placeholder="MM"
+              value={date.month}
+              onChangeText={(text) => setDate({ ...date, month: text })}
+            />
+          </View>
+        </>
+        :
+        <>
+          <Text>Vencimento</Text>
+          
+          <View style={styles.inputDateV}>
+            {/* <TextInput
+              style={styles.inputDate}
+              placeholder="DD"
+              value={date.day}
+              onChangeText={(text) => setDate({ ...date, day: text })}
+            /> */}
+            <TextInput
+              style={styles.inputDate}
+              placeholder="MM"
+              value={date.month}
+              onChangeText={(text) => setDate({ ...date, month: text })}
+            />
+            <TextInput
+              style={styles.inputDate}
+              placeholder="AAAA"
+              value={date.year}
+              onChangeText={(text) => setDate({ ...date, year: text })}
+            />
+          </View>
+        </>
+        }
 
-        <View pointerEvents={prefixado ? '' : 'none'}>
+        <View pointerEvents={taxaIsFixed ? 'none' : ''}>
           <Text>Rentabilidade</Text>
           <TextInput
             style={styles.input}
-            value={prefixado ? profitability : selic*100}
+            value={profitability}
             onChangeText={(text) => setProfitability(text)}
             placeholder=" %"
           />
         </View>
 
         <View>
-          <Text>Quanto você quer investir mensalmente?</Text>
+          <Text>Quanto você quer investir{(type == 'poupanca' || type == 'tesouro' || type == 'previdencia') && " mensalmente"}?</Text>
           <TextInput
             style={styles.input}
             value={invest}
@@ -119,6 +150,28 @@ export default function Simulate({ type }) {
           /> */}
         </View>
 
+        {type == 'fundos' &&
+        <>
+          <View style={styles.inputDateV}>
+            <Text style={{ marginRight: 30 }}>Taxa de Administração</Text>
+            <Text>IR</Text>
+          </View>
+          <View style={styles.inputDateV}>
+            <TextInput
+              style={styles.inputDate}
+              value={date.month}
+              onChangeText={(text) => setDate({ ...date, month: text })}
+            />
+
+            <TextInput
+              style={styles.inputDate}
+              value={date.year}
+              onChangeText={(text) => setDate({ ...date, year: text })}
+            />
+          </View>
+        </>
+        }
+
         <Button 
           onPress={() => calcResult()}
           title="Calcular"
@@ -128,7 +181,8 @@ export default function Simulate({ type }) {
           <View>
             <Text style={{ fontSize: '15px' }}>Em {period} meses o resultado estimado é R$ {result} *</Text>
             <Text>*Valor Bruto</Text>
-            <Text style={{ fontSize: '15px' }}>Com base na Taxa Selic a {selic} %</Text>
+            {!prefixado &&
+              <Text style={{ fontSize: '15px' }}>Com base na Taxa Selic a {profitability} %</Text>}
           </View>
         }
 

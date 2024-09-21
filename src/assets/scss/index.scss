@@ -1,10 +1,9 @@
 .container {
     flex: 1;
-    min-height: 100%;
+    max-height: 100%;
 }
 .content {
     display: flex;
-    flex-direction: row;
     justify-content: space-around;
 }
 .content2 {
@@ -18,7 +17,7 @@
     align-items: center;
     border-radius: 2px;
 }
-.logout {
+.perfilIcon {
     display: flex;
     position: absolute;
     right: 5%;
@@ -74,4 +73,9 @@
     grid-template-columns: repeat(2, 1fr);
     grid-column-gap: 10px;
     grid-row-gap: 1em;
+}
+.ladoAlado {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }

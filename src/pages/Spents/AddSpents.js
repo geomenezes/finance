@@ -16,7 +16,7 @@ export default function AddSpents({ navigation }) {
     setTipoLancamento(tipo);
     if (tipo === 'Receita') {
       setParceladoDesabilitado(true);
-      setRecorrencia(null); 
+      setRecorrencia(null);
     } else {
       setParceladoDesabilitado(false);
     }
@@ -35,6 +35,18 @@ export default function AddSpents({ navigation }) {
       Alert.alert('Preencha todos os campos', 'Por favor, preencha todos os campos para salvar!', [{ text: 'OK' }]);
       return;
     }
+
+    // Passa os dados para a tela Spents
+    navigation.navigate('Spents', {
+      novaDespesa: {
+        descricao,
+        valor: parseFloat(valor),
+        tipoLancamento,
+        recorrencia,
+        quantidade,
+        periodo,
+      },
+    });
   };
 
   return (
@@ -43,113 +55,113 @@ export default function AddSpents({ navigation }) {
       <Text style={styles.header}>Acompanhe o relatório dos seus gastos!</Text>
       
       <View style={styles.content}>
+        <TextInput 
+          style={[styles.input, styles.descricaoInput]} 
+          placeholder="Digite a descrição aqui..." 
+          placeholderTextColor="#7A7A7A" 
+          value={descricao}
+          onChangeText={setDescricao}
+          multiline={true}
+          numberOfLines={4}
+        />
+        <TextInput 
+          style={styles.input}
+          placeholder="R$"
+          placeholderTextColor="#7A7A7A" 
+          keyboardType="numeric"
+          value={valor}
+          onChangeText={setValor}
+        />
 
-      <TextInput 
-        style={[styles.input, styles.descricaoInput]} 
-        placeholder="Digite a descrição aqui..." 
-        placeholderTextColor="#7A7A7A" 
-        value={descricao}
-        onChangeText={setDescricao}
-        multiline={true}
-        numberOfLines={4}
-      />
-      <TextInput 
-        style={styles.input}
-        placeholder="R$"
-        placeholderTextColor="#7A7A7A" 
-        keyboardType="numeric"
-        value={valor}
-        onChangeText={setValor}
-      />
-
-      <Text style={styles.label}>Categoria:</Text>
-      <View style={styles.pickerContainer}>
-        <Picker style={styles.picker}
-          selectedValue={descricao}
-          onValueChange={(itemValue) => setDescricao(itemValue)}
-        >
-          <Picker.Item label="Outros" value="outros" />
-          <Picker.Item label="Alimentação" value="alimentacao" />
-          <Picker.Item label="Transporte" value="transporte" />
-          <Picker.Item label="Casa" value="casa" />
-          <Picker.Item label="Educação" value="educacao" />
-          <Picker.Item label="Lazer" value="lazer" />
-        </Picker>
-      </View>
-
-      <Text style={styles.label}>Data:</Text>
-      <View style={styles.dateContainer}>
-        <TextInput style={styles.dateInput} placeholder="dd" maxLength={2} keyboardType="numeric" />
-        <TextInput style={styles.dateInput} placeholder="mm" maxLength={2} keyboardType="numeric" />
-        <TextInput style={styles.dateInput} placeholder="aaaa" maxLength={4} keyboardType="numeric" />
-      </View>
-
-      <Text style={styles.label}>Tipo de lançamento:</Text>
-      <View style={styles.row}>
-        <TouchableOpacity
-          style={[styles.button, tipoLancamento === 'Receita' && styles.selectedButton]}
-          onPress={() => handleTipoLancamento('Receita')}
-        >
-          <Text style={styles.buttonText}>Receita</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.button, tipoLancamento === 'Despesa' && styles.selectedButton]}
-          onPress={() => handleTipoLancamento('Despesa')}
-        >
-          <Text style={styles.buttonText}>Despesa</Text>
-        </TouchableOpacity>
-      </View>
-
-      <Text style={styles.label}>Recorrência:</Text>
-      <View style={styles.row}>
-        <TouchableOpacity
-          style={[styles.button, recorrencia === 'Fixo' && styles.selectedButton]}
-          onPress={() => handleRecorrencia('Fixo')}
-        >
-          <Text style={styles.buttonText}>Fixo</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.button, recorrencia === 'Parcelado' && styles.selectedButton, parceladoDesabilitado && styles.disabledButton]}
-          onPress={() => !parceladoDesabilitado && handleRecorrencia('Parcelado')}
-          disabled={parceladoDesabilitado}
-        >
-          <Text style={styles.buttonText}>Parcelado</Text>
-        </TouchableOpacity>
-      </View>
-
-      {(recorrencia === 'Parcelado' || recorrencia === 'Fixo') && (
-        <View style={styles.extraContainer}>
-          <TextInput
-            style={styles.input}
-            placeholder="Quantidade"
-            value={quantidade}
-            onChangeText={setQuantidade}
-            keyboardType="numeric"
-          />
-          <View style={styles.pickerContainer}>
-            <Picker
-              selectedValue={periodo}
-              style={styles.picker}
-              onValueChange={(itemValue) => setPeriodo(itemValue)}
-            >
-              <Picker.Item label="Semanas" value="semanas" />
-              <Picker.Item label="Meses" value="meses" />
-              <Picker.Item label="Anos" value="anos" />
-            </Picker>
-          </View>
+        <Text style={styles.label}>Categoria:</Text>
+        <View style={styles.pickerContainer}>
+          <Picker 
+            style={styles.picker}
+            selectedValue={descricao}
+            onValueChange={(itemValue) => setDescricao(itemValue)}
+          >
+            <Picker.Item label="Outros" value="outros" />
+            <Picker.Item label="Alimentação" value="alimentacao" />
+            <Picker.Item label="Transporte" value="transporte" />
+            <Picker.Item label="Casa" value="casa" />
+            <Picker.Item label="Educação" value="educacao" />
+            <Picker.Item label="Lazer" value="lazer" />
+          </Picker>
         </View>
-      )}
 
-      <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
-        <Text style={styles.saveButtonText}>Salvar</Text>
-      </TouchableOpacity>
+        <Text style={styles.label}>Data:</Text>
+        <View style={styles.dateContainer}>
+          <TextInput style={styles.dateInput} placeholder="dd" maxLength={2} keyboardType="numeric" />
+          <TextInput style={styles.dateInput} placeholder="mm" maxLength={2} keyboardType="numeric" />
+          <TextInput style={styles.dateInput} placeholder="aaaa" maxLength={4} keyboardType="numeric" />
+        </View>
 
+        <Text style={styles.label}>Tipo de lançamento:</Text>
+        <View style={styles.row}>
+          <TouchableOpacity
+            style={[styles.button, tipoLancamento === 'Receita' && styles.selectedButton]}
+            onPress={() => handleTipoLancamento('Receita')}
+          >
+            <Text style={styles.buttonText}>Receita</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.button, tipoLancamento === 'Despesa' && styles.selectedButton]}
+            onPress={() => handleTipoLancamento('Despesa')}
+          >
+            <Text style={styles.buttonText}>Despesa</Text>
+          </TouchableOpacity>
+        </View>
+
+        <Text style={styles.label}>Recorrência:</Text>
+        <View style={styles.row}>
+          <TouchableOpacity
+            style={[styles.button, recorrencia === 'Fixo' && styles.selectedButton]}
+            onPress={() => handleRecorrencia('Fixo')}
+          >
+            <Text style={styles.buttonText}>Fixo</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.button, recorrencia === 'Parcelado' && styles.selectedButton, parceladoDesabilitado && styles.disabledButton]}
+            onPress={() => !parceladoDesabilitado && handleRecorrencia('Parcelado')}
+            disabled={parceladoDesabilitado}
+          >
+            <Text style={styles.buttonText}>Parcelado</Text>
+          </TouchableOpacity>
+        </View>
+
+        {(recorrencia === 'Parcelado' || recorrencia === 'Fixo') && (
+          <View style={styles.extraContainer}>
+            <TextInput
+              style={styles.input}
+              placeholder="Quantidade"
+              value={quantidade}
+              onChangeText={setQuantidade}
+              keyboardType="numeric"
+            />
+            <View style={styles.pickerContainer}>
+              <Picker
+                selectedValue={periodo}
+                style={styles.picker}
+                onValueChange={(itemValue) => setPeriodo(itemValue)}
+              >
+                <Picker.Item label="Semanas" value="semanas" />
+                <Picker.Item label="Meses" value="meses" />
+                <Picker.Item label="Anos" value="anos" />
+              </Picker>
+            </View>
+          </View>
+        )}
+
+        <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
+          <Text style={styles.saveButtonText}>Salvar</Text>
+        </TouchableOpacity>
       </View>
 
       <Footer navigation={navigation} />
     </View>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {

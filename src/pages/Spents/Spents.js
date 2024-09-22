@@ -1,26 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image, TextInput, Dimensions, TouchableOpacity } from 'react-native';
-import { VictoryPie } from 'victory-native'; 
+import { VictoryPie } from 'victory-native';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 
-export default function Spents({ navigation }) {
-
-  const [valorCasa, setValorCasa] = useState("0");
-  const [valorAlimentacao, setValorAlimentacao] = useState("0");
-  const [valorSaude, setValorSaude] = useState("0");
-  const [valorEducacao, setValorEducacao] = useState("0");
-  const [valorLazer, setValorLazer] = useState("0");
-  const [valorOutros, setValorOutros] = useState("0");
+export default function Spents({ route, navigation }) {
+  const { valorCasa, valorAlimentacao, valorSaude, valorEducacao, valorLazer, valorOutros } = route.params || {};
 
   const formatarValor = (valor) => isNaN(parseFloat(valor)) || valor === '' ? 0 : parseFloat(valor);
 
-  const totalGastos = 
-    formatarValor(valorCasa) + 
-    formatarValor(valorAlimentacao) + 
-    formatarValor(valorSaude) + 
-    formatarValor(valorEducacao) + 
-    formatarValor(valorLazer) + 
+  const totalGastos =
+    formatarValor(valorCasa) +
+    formatarValor(valorAlimentacao) +
+    formatarValor(valorSaude) +
+    formatarValor(valorEducacao) +
+    formatarValor(valorLazer) +
     formatarValor(valorOutros);
 
   const calcularPercentual = (valor) => {
@@ -52,90 +46,46 @@ export default function Spents({ navigation }) {
     <View style={stylesRelatorio.container}>
       <Header navigation={navigation} />
       <View style={stylesRelatorio.content}>
-
-      <View style={stylesRelatorio.header}>
-        <Text style={stylesRelatorio.titulo}>Acompanhe o relatório dos seus gastos!</Text>
-      </View>
-
-      <Text style={stylesRelatorio.subtitulo}>Janeiro, 2024</Text>
-
-      <VictoryPie
-        data={dadosGrafico}
-        colorScale={dadosGrafico.map(item => item.cor)}
-        style={{ labels: { fill: "black" } }}
-        padAngle={3}
-        innerRadius={40} 
-        width={screenWidth}
-        height={220}
-      />
-
-      <Text style={stylesRelatorio.totalTexto}>Total R$ {totalGastos.toFixed(2)}</Text>
-
-      <View style={stylesRelatorio.categoriasContainer}>
-        <View style={stylesRelatorio.categoriasColuna}>
-          {dadosGrafico.slice(0, 3).map((categoria) => (
-            <View key={categoria.x} style={stylesRelatorio.categoriaItem}>
-              <View style={[stylesRelatorio.circuloIcone, { backgroundColor: categoria.cor }]}>
-                <Image source={imagensCategoria[categoria.x]} style={stylesRelatorio.categoriaIcone} />
-              </View>
-              <View>
-                <Text style={stylesRelatorio.categoriaTitulo}>{categoria.x}</Text>
-                <TextInput
-                  style={stylesRelatorio.categoriaInput}
-                  keyboardType="numeric"
-                  value={categoria.y.toString()}
-                  onChangeText={(text) => {
-                    if (categoria.x === 'Casa') setValorCasa(text);
-                    if (categoria.x === 'Alimentação') setValorAlimentacao(text);
-                    if (categoria.x === 'Saúde') setValorSaude(text);
-                  }}
-                  placeholder="R$"
-                />
-                <Text style={stylesRelatorio.categoriaPorcentagem}>{calcularPercentual(categoria.y)}%</Text>
-              </View>
-            </View>
-          ))}
+        <View style={stylesRelatorio.header}>
+          <Text style={stylesRelatorio.titulo}>Acompanhe o relatório dos seus gastos!</Text>
         </View>
+        <Text style={stylesRelatorio.subtitulo}>Janeiro, 2024</Text>
 
-        <View style={stylesRelatorio.categoriasColuna}>
-          {dadosGrafico.slice(3).map((categoria) => (
-            <View key={categoria.x} style={stylesRelatorio.categoriaItem}>
-              <View style={[stylesRelatorio.circuloIcone, { backgroundColor: categoria.cor }]}>
-                <Image source={imagensCategoria[categoria.x]} style={stylesRelatorio.categoriaIcone} />
-              </View>
-              <View>
-                <Text style={stylesRelatorio.categoriaTitulo}>{categoria.x}</Text>
-                <TextInput
-                  style={stylesRelatorio.categoriaInput}
-                  keyboardType="numeric"
-                  value={categoria.y.toString()}
-                  onChangeText={(text) => {
-                    if (categoria.x === 'Educação') setValorEducacao(text);
-                    if (categoria.x === 'Lazer') setValorLazer(text);
-                    if (categoria.x === 'Outros') setValorOutros(text);
-                  }}
-                  placeholder="R$"
-                />
-                <Text style={stylesRelatorio.categoriaPorcentagem}>{calcularPercentual(categoria.y)}%</Text>
-              </View>
-            </View>
-          ))}
-        </View>
-      </View>
-
-      {/* Botão de "+"*/}
-      <TouchableOpacity 
-        style={stylesRelatorio.addButton} 
-        onPress={() => navigation.navigate("AddSpents")}
-      >
-        <Image 
-          source={require('../../assets/img/plusSpents.png')} 
-          style={stylesRelatorio.addButtonImage} 
+        <VictoryPie
+          data={dadosGrafico}
+          colorScale={dadosGrafico.map(item => item.cor)}
+          style={{ labels: { fill: "black" } }}
+          padAngle={3}
+          innerRadius={40}
+          width={screenWidth}
+          height={220}
         />
-      </TouchableOpacity>
 
+        <Text style={stylesRelatorio.totalTexto}>Total R$ {totalGastos.toFixed(2)}</Text>
+
+        <View style={stylesRelatorio.categoriasContainer}>
+          {dadosGrafico.map((categoria) => (
+            <View key={categoria.x} style={stylesRelatorio.categoriaItem}>
+              <View style={[stylesRelatorio.circuloIcone, { backgroundColor: categoria.cor }]}>
+                <Image source={imagensCategoria[categoria.x]} style={stylesRelatorio.categoriaIcone} />
+              </View>
+              <View>
+                <Text style={stylesRelatorio.categoriaTitulo}>{categoria.x}</Text>
+                <Text style={stylesRelatorio.categoriaPorcentagem}>{calcularPercentual(categoria.y)}%</Text>
+              </View>
+            </View>
+          ))}
+        </View>
+
+        <View style={stylesRelatorio.buttonContainer}>
+          <TouchableOpacity style={stylesRelatorio.addButton} onPress={() => navigation.navigate("AddSpents")}>
+            <Image source={require('../../assets/img/plusSpents.png')} style={stylesRelatorio.addButtonImage} />
+          </TouchableOpacity>
+          <TouchableOpacity style={stylesRelatorio.editButton} onPress={() => navigation.navigate("EditSpents")}>
+            <Image source={require('../../assets/img/editList.png')} style={stylesRelatorio.addButtonImage} />
+          </TouchableOpacity>
+        </View>
       </View>
-
       <Footer navigation={navigation} />
     </View>
   );
@@ -211,6 +161,14 @@ const stylesRelatorio = StyleSheet.create({
     fontSize: 14,
     color: '#757575',
   },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    position: 'absolute',
+    bottom: 80,
+    left: 20,
+    right: 20,
+  },
   addButton: {
     backgroundColor: 'transparent',
     width: 50,
@@ -218,9 +176,15 @@ const stylesRelatorio = StyleSheet.create({
     borderRadius: 30,
     justifyContent: 'center',
     alignItems: 'center',
-    position: 'absolute',
-    bottom: 80,
-    right: 20,
+    elevation: 5,
+  },
+  editButton: {
+    backgroundColor: 'transparent',
+    width: 50,
+    height: 50,
+    borderRadius: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
     elevation: 5,
   },
   addButtonImage: {

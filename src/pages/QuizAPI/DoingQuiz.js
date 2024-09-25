@@ -1,10 +1,12 @@
-import { Text, View } from "react-native";
+import { SafeAreaView, ScrollView, Text, View } from "react-native";
 import { questions, resultQuiz } from "./Info";
 import ButtonChoice from "../../components/Buttons/ButtonChoice";
 import { useState } from "react";
 import Header from "../../components/Header/Header";
 import ActionButton from "../../components/Buttons/Action";
 import typo from '../../assets/scss/typography.scss'
+import button from '../../assets/scss/buttons.scss';
+import index from '../../assets/scss/index.scss';
 
 export function DoingQuiz({ navigation }) {
 
@@ -77,37 +79,39 @@ export function DoingQuiz({ navigation }) {
     }
 
     return (
-        <View>
+        <SafeAreaView style={index.containerScroll}>
             <Header navigation={navigation} />
-            {
-                <>
-                    <Text style={typo.title}>{questions[step].question}</Text>
-                    {questions[step].alternatives.map((e, key) => (
-                        <ButtonChoice 
-                            key={key}
-                            id={"button-color-" + key}
-                            label={e.label} 
-                            onClick={() => {
-                                setCurrentPoint(e.value)
-                                setSeeNext(true)
-                                changeColor(key, questions[step].alternatives)
-                                if(questions[step]?.reference)
-                                    setReference([questions[step]?.reference])
-                            }}
-                        />
-                    ))}
-                </>
-            }
-            {(seeNext && (step + 1 < qtQuestions)) && 
-                <ActionButton label="Próximo" onClick={() => {
-                    countPoints(currentPoint)
-                    nextQuestion()
-                }} />}
-            {(seeNext && !(step + 1 < qtQuestions)) && 
-                <ActionButton label="Enviar" onClick={() => {
-                    countPoints(currentPoint)
-                    result()
-                }} />}
-        </View>
+            <ScrollView style={index.scrollView}>
+                <Text style={typo.title}>{questions[step].question}</Text>
+                <View style={button.contentBtn}>
+                    <View style={button.optionsBtn}>
+                        {questions[step].alternatives.map((e, key) => (
+                            <ButtonChoice 
+                                key={key}
+                                id={"button-color-" + key}
+                                label={e.label} 
+                                onClick={() => {
+                                    setCurrentPoint(e.value)
+                                    setSeeNext(true)
+                                    changeColor(key, questions[step].alternatives)
+                                    if(questions[step]?.reference)
+                                        setReference([questions[step]?.reference])
+                                }}
+                            />
+                        ))}
+                    </View>
+                </View>
+                {(seeNext && (step + 1 < qtQuestions)) && 
+                    <ActionButton label="Próximo" onClick={() => {
+                        countPoints(currentPoint)
+                        nextQuestion()
+                    }} />}
+                {(seeNext && !(step + 1 < qtQuestions)) && 
+                    <ActionButton label="Enviar" onClick={() => {
+                        countPoints(currentPoint)
+                        result()
+                    }} />}
+            </ScrollView>  
+        </SafeAreaView>
     )
 }

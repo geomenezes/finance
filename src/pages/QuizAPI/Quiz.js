@@ -3,6 +3,7 @@ import Footer from '../../components/Footer/Footer';
 import Header from '../../components/Header/Header';
 import ButtonChoice from '../../components/Buttons/ButtonChoice';
 import styles from '../../assets/scss/quiz.scss'
+import button from '../../assets/scss/buttons.scss';
 
 export default function Quiz ({ navigation }) {
     return (
@@ -10,8 +11,13 @@ export default function Quiz ({ navigation }) {
             <Header 
                 text="Seja bem-vindo (a) ao teste de perfil de investidor. Deseja iniciar o questionário?"
                 navigation={navigation} />
-            <ButtonChoice label="Sim, vamos lá!" onClick={() => navigation.navigate("DoingQuiz")} />
-            <ButtonChoice label="Não, talvez mais tarde!" onClick={() => navigation.goBack()} />
+
+            <View style={button.contentBtn}>
+                <View style={button.optionsBtn}>
+                    <ButtonChoice label="Sim, vamos lá!" onClick={() => navigation.navigate("DoingQuiz")} />
+                    <ButtonChoice label="Não, talvez mais tarde!" onClick={() => navigation.goBack()} />
+                </View>
+            </View>
             <Image
                 style={styles.imgQuiz}
                 source = {require('../../assets/img/list.png')}

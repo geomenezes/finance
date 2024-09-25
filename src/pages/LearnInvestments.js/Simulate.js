@@ -8,6 +8,48 @@ import Button from "../../components/Buttons/Button";
 import { Pressable } from "react-native";
 import { getSelic } from "../../services/Rates";
 
+function calcRend(type, invest, profitability, months, prefixado, rescue, dividends) {
+
+  var result;
+
+  switch (type) {
+    case 'previdencia':
+        result =[(final - invest + rescue) / invest] * 100
+        //Rendimentos = Distribuições, se houver (como resgates ou rendimentos acumulados).
+        //Taxas e Regime de Tributação
+        break;
+    case 'poupanca':
+      result = invest(1 + profitability)**months
+      break;
+    case 'tesouro':
+      if(prefixado)
+        result = invest*(1 + profitability)**(months/100) //número de anos
+      else 
+        result = invest*(1 + profitability)**(months/365) //número de dias
+      break;
+    case 'fundos':
+      result = (final - invest + rescue) / invest * 100
+      //Valor Final=(Numero de Cotas×Preco da Cota Final)+Rendimentos Recebidos
+      break;
+    case 'fixa':
+      //composto
+      result = invest * (1 + profitability)**months
+      //simples
+      //result = invest + (invest × profitability × months)
+      break;
+    case 'variavel':
+      result = (final - invest + dividends) / invest * 100
+      //Dividendos recebidos durante o período
+      break;
+    default:
+      montantePorMes = invest*months
+      rentabilidade = profitability;
+      result = montantePorMes + (montantePorMes*rentabilidade)
+  }
+
+  return result;
+}
+
 export default function Simulate({ type }) {
   
   const [date, setDate] = useState({ day: '', month: '', year: '' });
@@ -16,9 +58,10 @@ export default function Simulate({ type }) {
   const [seeResult, setSeeResult] = useState(false);
   const [result, setResult] = useState(0);
   const [profitability, setProfitability] = useState();
+  const [dividends, setDividends] = useState();
   const [prefixado, setPrefixado] = useState(true);
   const [period, setPeriod] = useState(0);
-  const [selic, setSelic] = useState(0);
+  const [selic, setSelic] = useState(10.75);
   const [taxaIsFixed, setTaxaIsFixed] = useState(false);
 
   const month = new Date().getMonth() + 1;
@@ -28,25 +71,24 @@ export default function Simulate({ type }) {
 
     if(type == 'poupanca')
       setProfitability(0.5)
+    
+    if (type == 'tesouro' && !prefixado)
+      setProfitability(selic)
 
     const asyncFn = async () => {
       var value = await getSelic()
       var taxa = Number(value[0]?.valor)
-      // taxa = (1+taxa)**(30-1)
-      // taxa = (1+taxa)**(12-1)
+
       setSelic(taxa);
     };
 
-    asyncFn();
+    // asyncFn();
   }, []);
 
   useEffect(() => {
 
     if(type == 'poupanca' || (type == 'tesouro' && !prefixado))
       setTaxaIsFixed(true)
-
-    if (type == 'tesouro' && !prefixado)
-      setProfitability(selic*100)
 
   }, [prefixado]);
 
@@ -61,10 +103,8 @@ export default function Simulate({ type }) {
         months += ((Number(date.year) - 1) - year) * 12;
       }
     }
-    
-    montantePorMes = invest*months
-    rentabilidade = profitability/100;
-    r = montantePorMes + (montantePorMes*rentabilidade)
+
+    r = calcRend(type, invest, profitability/100, months, prefixado, rescue)
     
     setPeriod(months)
     setResult(r)
@@ -189,3 +229,12 @@ export default function Simulate({ type }) {
         </View>
     );
   }
+
+
+  //Tesouro IPCA+ (NTN-B):
+  //Rendimento: Valor investido × [(1 + taxa de juros) × (1 + IPCA)] ^ (número de anos)
+
+  //Poupança sobre a Taxa de Juros
+  // Se a taxa Selic for maior que 8% ao ano, a poupança rende 0,5% ao mês + a variação da TR (Taxa Referencial).
+  // Se a taxa Selic for igual ou menor que 8% ao ano, a poupança rende 70% da Selic + a variação da TR.
+

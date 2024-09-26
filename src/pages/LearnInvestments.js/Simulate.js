@@ -14,21 +14,19 @@ function calcRend(type, invest, profitability, months, prefixado, rescue, divide
 
   switch (type) {
     case 'previdencia':
-        result =[(final - invest + rescue) / invest] * 100
-        //Rendimentos = Distribuições, se houver (como resgates ou rendimentos acumulados).
+        result = (invest * (((1 + (profitability/12))**months) - 1)/(profitability/12)) * (1 + (profitability/12));
         //Taxas e Regime de Tributação
         break;
     case 'poupanca':
-      result = invest(1 + profitability)**months
+      result = invest*(1 + profitability)**months
       break;
     case 'tesouro':
-      if(prefixado)
-        result = invest*(1 + profitability)**(months/100) //número de anos
-      else 
-        result = invest*(1 + profitability)**(months/365) //número de dias
+      result = invest*(1 + (profitability/12))**months
+      //Taxas e Regime de Tributação
+      //let ir = (lucro > 0) ? lucro * 0.15 : 0; // 15% de IRlet ir = (lucro > 0) ? lucro * 0.15 : 0; // 15% de IR
       break;
     case 'fundos':
-      result = (final - invest + rescue) / invest * 100
+      result = invest * (profitability/12) * months
       //Valor Final=(Numero de Cotas×Preco da Cota Final)+Rendimentos Recebidos
       break;
     case 'fixa':
@@ -47,7 +45,7 @@ function calcRend(type, invest, profitability, months, prefixado, rescue, divide
       result = montantePorMes + (montantePorMes*rentabilidade)
   }
 
-  return result;
+  return result.toFixed(2);
 }
 
 export default function Simulate({ type }) {
@@ -63,14 +61,18 @@ export default function Simulate({ type }) {
   const [period, setPeriod] = useState(0);
   const [selic, setSelic] = useState(10.75);
   const [taxaIsFixed, setTaxaIsFixed] = useState(false);
+  const [impostRend, setTmpostRend] = useState();
+  const [taxaRend, setTaxaRend] = useState('a.a%');
 
   const month = new Date().getMonth() + 1;
   const year = new Date().getFullYear();
 
   useEffect(() => {
 
-    if(type == 'poupanca')
+    if(type == 'poupanca') {
       setProfitability(0.5)
+      setTaxaRend('a.m%')
+    }
     
     if (type == 'tesouro' && !prefixado)
       setProfitability(selic)
@@ -89,22 +91,31 @@ export default function Simulate({ type }) {
 
     if(type == 'poupanca' || (type == 'tesouro' && !prefixado))
       setTaxaIsFixed(true)
+    else setTaxaIsFixed(false)
+
+    if(type == 'tesouro' && !prefixado)
+      setProfitability(selic)
+
+    setSeeResult(false)
 
   }, [prefixado]);
 
   function calcResult() {
     var r;
     var months = 0;
-
-    months += Number(date.month);
-    if(type !== 'poupanca') {
-      months += 12 - month;
-      if(Number(date.year) - year > 1) {
-        months += ((Number(date.year) - 1) - year) * 12;
+    if(type == 'previdencia')
+      months = Number(date.year) * 12;
+    else {
+      months += Number(date.month);
+      if(type !== 'poupanca') {
+        months += 12 - month;
+        if(Number(date.year) - year > 1) {
+          months += ((Number(date.year) - 1) - year) * 12;
+        }
       }
     }
-
-    r = calcRend(type, invest, profitability/100, months, prefixado, rescue)
+    
+    r = calcRend(type, Number(invest), profitability/100, months, prefixado, rescue)
     
     setPeriod(months)
     setResult(r)
@@ -143,18 +154,13 @@ export default function Simulate({ type }) {
           <Text>Vencimento</Text>
           
           <View style={styles.inputDateV}>
-            {/* <TextInput
-              style={styles.inputDate}
-              placeholder="DD"
-              value={date.day}
-              onChangeText={(text) => setDate({ ...date, day: text })}
-            /> */}
-            <TextInput
-              style={styles.inputDate}
-              placeholder="MM"
-              value={date.month}
-              onChangeText={(text) => setDate({ ...date, month: text })}
-            />
+            {type !== 'previdencia' &&
+              <TextInput
+                style={styles.inputDate}
+                placeholder="MM"
+                value={date.month}
+                onChangeText={(text) => setDate({ ...date, month: text })}
+              />}
             <TextInput
               style={styles.inputDate}
               placeholder="AAAA"
@@ -166,7 +172,7 @@ export default function Simulate({ type }) {
         }
 
         <View pointerEvents={taxaIsFixed ? 'none' : ''}>
-          <Text>Rentabilidade</Text>
+          <Text>Rentabilidade {taxaRend}</Text>
           <TextInput
             style={styles.input}
             value={profitability}
@@ -193,23 +199,35 @@ export default function Simulate({ type }) {
         {type == 'fundos' &&
         <>
           <View style={styles.inputDateV}>
-            <Text style={{ marginRight: 30 }}>Taxa de Administração</Text>
+            <Text style={{ marginRight: 30 }}>Aliquota</Text>
             <Text>IR</Text>
           </View>
           <View style={styles.inputDateV}>
             <TextInput
               style={styles.inputDate}
-              value={date.month}
-              onChangeText={(text) => setDate({ ...date, month: text })}
+              value={date.year}
+              onChangeText={(text) => setDate({ ...date, year: text })}
             />
 
             <TextInput
               style={styles.inputDate}
-              value={date.year}
-              onChangeText={(text) => setDate({ ...date, year: text })}
+              value={impostRend}
+              onChangeText={(value) => setIimpostRend(value)}
             />
+
           </View>
         </>
+        }
+
+        {type == 'previdencia' &&
+          <View>
+            <Text>Aliquota de Imposto de Renda</Text>
+            <TextInput
+              style={styles.inputDate}
+              value={impostRend}
+              onChangeText={(value) => setIimpostRend(value)}
+            />
+          </View>
         }
 
         <Button 

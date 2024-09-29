@@ -5,7 +5,7 @@ import Footer from '../../components/Footer/Footer';
 import styles from '../../assets/scss/index.scss';
 import typo from '../../assets/scss/typography.scss';
 import { VictoryBar, VictoryChart, VictoryAxis } from 'victory-native';
-import { getSelic } from '../../services/financialService'; 
+import { getSelic } from "../../services/Rates";
 
 export default function Projection({ route, navigation }) {
   const { investments } = route.params; 

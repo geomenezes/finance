@@ -68,7 +68,7 @@ export default function AddSpents({ navigation }) {
           style={styles.input}
           placeholder="R$"
           placeholderTextColor="#7A7A7A" 
-          keyboardType="numeric"
+          inputMode="numeric"
           value={valor}
           onChangeText={setValor}
         />
@@ -91,9 +91,9 @@ export default function AddSpents({ navigation }) {
 
         <Text style={styles.label}>Data:</Text>
         <View style={styles.dateContainer}>
-          <TextInput style={styles.dateInput} placeholder="dd" maxLength={2} keyboardType="numeric" />
-          <TextInput style={styles.dateInput} placeholder="mm" maxLength={2} keyboardType="numeric" />
-          <TextInput style={styles.dateInput} placeholder="aaaa" maxLength={4} keyboardType="numeric" />
+          <TextInput style={styles.dateInput} placeholder="dd" maxLength={2} inputMode="numeric" />
+          <TextInput style={styles.dateInput} placeholder="mm" maxLength={2} inputMode="numeric" />
+          <TextInput style={styles.dateInput} placeholder="aaaa" maxLength={4} inputMode="numeric" />
         </View>
 
         <Text style={styles.label}>Tipo de lançamento:</Text>
@@ -136,7 +136,7 @@ export default function AddSpents({ navigation }) {
               placeholder="Quantidade"
               value={quantidade}
               onChangeText={setQuantidade}
-              keyboardType="numeric"
+              inputMode="numeric"
             />
             <View style={styles.pickerContainer}>
               <Picker
@@ -192,7 +192,7 @@ const styles = StyleSheet.create({
   },
   descricaoInput: {
     height: 100, 
-    textAlignVertical: 'top', 
+    verticalAlign: 'top', 
   },
   pickerContainer: {
     backgroundColor: '#F5F5F5', 

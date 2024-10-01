@@ -44,9 +44,9 @@ export default function App() {
         <Stack.Screen name="AddSpents" component={AddSpents} />
         <Stack.Screen name="EditSpents" component={EditSpents} />
         <Stack.Screen name="Investments" component={Investments} />
-        <Stack.Screen name="Investments" component={Projection} />
-        <Stack.Screen name="Investments" component={AddInvestments} />
-        <Stack.Screen name="Investments" component={EditInvestments} />
+        <Stack.Screen name="Projection" component={Projection} />
+        <Stack.Screen name="AddInvestments" component={AddInvestments} />
+        <Stack.Screen name="EditInvestments" component={EditInvestments} />
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="DoingQuiz" component={DoingQuiz} />
         <Stack.Screen name="ResultQuiz" component={ResultQuiz} />

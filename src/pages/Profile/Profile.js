@@ -59,14 +59,14 @@ export default function EditProfile({ navigation }) {
           onChangeText={setNome}
           value={nome}
           placeholder="Nome completo"
-          keyboardType="default"
+          inputMode="default"
         />
         <TextInput
           style={localStyles.input}
           onChangeText={setEmail}
           value={email}
           placeholder="E-mail"
-          keyboardType="email-address"
+          inputMode="email-address"
         />
         <View style={localStyles.generoContainer}>
           <TouchableOpacity

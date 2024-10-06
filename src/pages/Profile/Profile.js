@@ -129,7 +129,6 @@ export default function EditProfile({ navigation }) {
 const localStyles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
   },
   content: {
     padding: 20,
@@ -175,7 +174,7 @@ const localStyles = StyleSheet.create({
     flex: 1,
   },
   input: {
-    backgroundColor: '#F0F0F0',
+    backgroundColor: '#C9C6C66B',
     borderRadius: 10,
     padding: 10,
     marginBottom: 15,
@@ -187,7 +186,7 @@ const localStyles = StyleSheet.create({
     marginBottom: 15,
   },
   generoBox: {
-    backgroundColor: '#F0F0F0',
+    backgroundColor: '#C9C6C66B',
     borderRadius: 10,
     padding: 10,
     alignItems: 'center',
@@ -206,7 +205,7 @@ const localStyles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   inputDataNasc: {
-    backgroundColor: '#F0F0F0',
+    backgroundColor: '#C9C6C66B',
     borderRadius: 10,
     padding: 10,
     fontSize: 16,

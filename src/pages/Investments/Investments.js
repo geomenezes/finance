@@ -93,7 +93,6 @@ export default function Investments({ route, navigation }) {
 const stylesInvestimento = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F5F5',
   },
   content: {
     padding: 20,

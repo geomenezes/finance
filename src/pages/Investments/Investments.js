@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Dimensions, TouchableOpacity, Image } from 'react-native';
 import { VictoryPie } from 'victory-native';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
@@ -84,6 +84,25 @@ export default function Investments({ route, navigation }) {
             ))}
           </View>
         </ScrollView>
+
+        <View style={stylesInvestimento.buttonContainer}>
+          <TouchableOpacity 
+            style={stylesInvestimento.addButton} 
+            onPress={() => navigation.navigate("AddInvestments")}
+            accessible={true}
+            accessibilityLabel="Adicionar investimentos"
+          >
+            <Image source={require('../../assets/img/plusSpents.png')} style={stylesInvestimento.addButtonImage} />
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style={stylesInvestimento.editButton} 
+            onPress={() => navigation.navigate("EditInvestments")}
+            accessible={true}
+            accessibilityLabel="Editar investimentos"
+          >
+            <Image source={require('../../assets/img/editList.png')} style={stylesInvestimento.addButtonImage} />
+          </TouchableOpacity>
+        </View>
       </View>
       <Footer navigation={navigation} />
     </View>
@@ -126,7 +145,7 @@ const stylesInvestimento = StyleSheet.create({
   },
   categoriasContainer: {
     flexDirection: 'row',
-    flexWrap: 'wrap', 
+    flexWrap: 'wrap',
     justifyContent: 'space-between',
   },
   categoriaItem: {
@@ -149,5 +168,26 @@ const stylesInvestimento = StyleSheet.create({
   categoriaValor: {
     fontSize: 14,
     color: '#757575',
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginTop: 20,
+  },
+  addButton: {
+    backgroundColor: '#0DA980',
+    borderRadius: 5,
+    padding: 10,
+    elevation: 5, // Adiciona sombra
+  },
+  editButton: {
+    backgroundColor: '#67C587',
+    borderRadius: 5,
+    padding: 10,
+    elevation: 5, // Adiciona sombra
+  },
+  addButtonImage: {
+    width: 24,
+    height: 24,
   },
 });

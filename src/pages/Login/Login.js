@@ -18,7 +18,7 @@ export default function Login({ navigation }) {
                 onChangeText={setEmail}
                 value={email}
                 placeholder="Email"
-                keyboardType="email"
+                inputMode="email"
             />
             <TextInput
                 style={styles.input}

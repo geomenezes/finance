@@ -25,7 +25,7 @@ export default function Register({ navigation }) {
                 onChangeText={setEmail}
                 value={email}
                 placeholder="Email"
-                keyboardType="email"
+                inputMode="email"
             />
             <TextInput
                 style={styles.inputR}

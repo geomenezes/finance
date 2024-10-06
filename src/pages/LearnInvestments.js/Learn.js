@@ -26,12 +26,12 @@ export default function Learn({ navigation, route }) {
       <View style={styles.container}>
           <Header navigation={navigation} />
 
-                <View style={button.content_invest}>
-                    <Pressable style={about ? button.invest : button.invest_select} 
+                <View style={button.content_invest_line}>
+                    <Pressable style={about ? button.invest_line : button.invest_select_line} 
                     onPress={() => changeScreen(1)}>
                         <Text style={typo.textCenter}>Simular</Text>
                     </Pressable>
-                    <Pressable style={about ? button.invest_select : button.invest} 
+                    <Pressable style={about ? button.invest_select_line : button.invest_line} 
                     onPress={() => changeScreen(0)}>
                         <Text style={typo.textCenter}>Sobre</Text>
                     </Pressable>

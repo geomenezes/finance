@@ -26,23 +26,18 @@ function calcRend(type, invest, profitability, months, prefixado, rescue, divide
       //let ir = (lucro > 0) ? lucro * 0.15 : 0; // 15% de IRlet ir = (lucro > 0) ? lucro * 0.15 : 0; // 15% de IR
       break;
     case 'fundos':
-      result = invest * (profitability/12) * months
-      //Valor Final=(Numero de Cotas×Preco da Cota Final)+Rendimentos Recebidos
+      result = ((invest * months) * (profitability/12)) + invest
+      // menos IR, inflação e taxa de adm
       break;
     case 'fixa':
-      //composto
-      result = invest * (1 + profitability)**months
-      //simples
-      //result = invest + (invest × profitability × months)
+      result = invest*(1 + (profitability/12))**months
       break;
     case 'variavel':
       result = (final - invest + dividends) / invest * 100
       //Dividendos recebidos durante o período
       break;
     default:
-      montantePorMes = invest*months
-      rentabilidade = profitability;
-      result = montantePorMes + (montantePorMes*rentabilidade)
+      result = 0
   }
 
   return result.toFixed(2);
@@ -74,7 +69,7 @@ export default function Simulate({ type }) {
       setTaxaRend('a.m%')
     }
     
-    if (type == 'tesouro' && !prefixado)
+    if ((type == 'tesouro' || type == 'fixa') && !prefixado)
       setProfitability(selic)
 
     const asyncFn = async () => {
@@ -89,11 +84,11 @@ export default function Simulate({ type }) {
 
   useEffect(() => {
 
-    if(type == 'poupanca' || (type == 'tesouro' && !prefixado))
+    if(type == 'poupanca' || ((type == 'tesouro' || type == 'fixa') && !prefixado))
       setTaxaIsFixed(true)
     else setTaxaIsFixed(false)
 
-    if(type == 'tesouro' && !prefixado)
+    if((type == 'tesouro' || type == 'fixa') && !prefixado)
       setProfitability(selic)
 
     setSeeResult(false)
@@ -125,21 +120,21 @@ export default function Simulate({ type }) {
     return (
       <View style={index.content2}>
 
-        {type == 'tesouro' && 
+        {(type == 'tesouro' || type == 'fixa') && 
         <View style={button.content_invest}>
             <Pressable style={prefixado ? button.invest_select : button.invest} 
             onPress={() => setPrefixado(true)}>
-                <Text style={typo.textCenter}>Prefixado</Text>
+                <Text style={prefixado ? typo.textCenter_white : typo.textCenter}>Prefixado</Text>
             </Pressable>
             <Pressable style={prefixado ? button.invest : button.invest_select} 
             onPress={() => setPrefixado(false)}>
-                <Text style={typo.textCenter}>Pós-fixado</Text>
+                <Text style={prefixado ? typo.textCenter : typo.textCenter_white}>Pós-fixado</Text>
             </Pressable>
         </View>}
         {type == 'poupanca' ?
         <>
-          <Text>Quanto tempo deseja deixar seu dinheiro investido?</Text>
-                  
+          <Text style={typo.spaceAbove}>Quanto tempo deseja deixar seu dinheiro investido?</Text>
+          
           <View style={styles.inputDateV}>
             <TextInput
               style={styles.inputDate}
@@ -151,7 +146,7 @@ export default function Simulate({ type }) {
         </>
         :
         <>
-          <Text>Vencimento</Text>
+          <Text style={typo.spaceAbove}>Vencimento</Text>
           
           <View style={styles.inputDateV}>
             {type !== 'previdencia' &&
@@ -172,7 +167,7 @@ export default function Simulate({ type }) {
         }
 
         <View pointerEvents={taxaIsFixed ? 'none' : ''}>
-          <Text>Rentabilidade {taxaRend}</Text>
+          <Text style={typo.spaceAbove}>Rentabilidade {taxaRend}</Text>
           <TextInput
             style={styles.input}
             value={profitability}
@@ -182,13 +177,14 @@ export default function Simulate({ type }) {
         </View>
 
         <View>
-          <Text>Quanto você quer investir{(type == 'poupanca' || type == 'tesouro' || type == 'previdencia') && " mensalmente"}?</Text>
+          <Text style={typo.spaceAbove}>Quanto você quer investir
+            {(type == 'poupanca' || type == 'tesouro' || type == 'previdencia' || type == 'fixa') && " mensalmente"}?</Text>
           <TextInput
             style={styles.input}
             value={invest}
             onChangeText={(text) => setInvest(text)}
           />
-          {/* <Text>Quanto você quer resgatar no futuro?</Text>
+          {/* <Text style={typo.spaceAbove}>Quanto você quer resgatar no futuro?</Text>
           <TextInput
             style={styles.input}
             value={rescue}
@@ -196,11 +192,11 @@ export default function Simulate({ type }) {
           /> */}
         </View>
 
-        {type == 'fundos' &&
+        {/* {type == 'fundos' &&
         <>
           <View style={styles.inputDateV}>
             <Text style={{ marginRight: 30 }}>Aliquota</Text>
-            <Text>IR</Text>
+            <Text style={typo.spaceAbove}>IR</Text>
           </View>
           <View style={styles.inputDateV}>
             <TextInput
@@ -217,28 +213,29 @@ export default function Simulate({ type }) {
 
           </View>
         </>
-        }
+        } */}
 
-        {type == 'previdencia' &&
+        {/* {type == 'previdencia' &&
           <View>
-            <Text>Aliquota de Imposto de Renda</Text>
+            <Text style={typo.spaceAbove}>Aliquota de Imposto de Renda</Text>
             <TextInput
               style={styles.inputDate}
               value={impostRend}
               onChangeText={(value) => setIimpostRend(value)}
             />
           </View>
-        }
+        } */}
 
-        <Button 
-          onPress={() => calcResult()}
-          title="Calcular"
-          style={button.calc} />
-
+        <View style={{ marginTop: 30, marginBottom: 20 }}>
+          <Button 
+            onPress={() => calcResult()}
+            title="Calcular"
+            style={button.calc} />
+        </View>
         {seeResult &&
           <View>
             <Text style={{ fontSize: '15px' }}>Em {period} meses o resultado estimado é R$ {result} *</Text>
-            <Text>*Valor Bruto</Text>
+            <Text style={typo.spaceAbove}>*Valor Bruto</Text>
             {!prefixado &&
               <Text style={{ fontSize: '15px' }}>Com base na Taxa Selic a {profitability} %</Text>}
           </View>
@@ -256,3 +253,8 @@ export default function Simulate({ type }) {
   // Se a taxa Selic for maior que 8% ao ano, a poupança rende 0,5% ao mês + a variação da TR (Taxa Referencial).
   // Se a taxa Selic for igual ou menor que 8% ao ano, a poupança rende 70% da Selic + a variação da TR.
 
+  // O IR em renda fixa é cobrado sobre o rendimento, com alíquotas que variam de acordo com o prazo:
+  // 22,5% para aplicações de até 180 dias
+  // 20% para de 181 a 360 dias
+  // 17,5% para de 361 a 720 dias
+  // 15% para acima de 720 dias

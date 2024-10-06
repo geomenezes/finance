@@ -63,7 +63,6 @@ export default function EditSpents({ route, navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F5F5',
   },
   header: {
     backgroundColor: '#01464D',

@@ -16,7 +16,7 @@ export default function Header({ name, text, navigation }) {
             <ImageBackground source={url} style={styles.background}>
                 <View style={styles.content}>
                     {navigation &&
-                    <FontAwesome.Button
+                    <FontAwesome
                         name='chevron-left'
                         size={24}
                         style={styles.goBack}

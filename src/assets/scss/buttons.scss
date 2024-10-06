@@ -12,17 +12,16 @@
     flex-direction: row;
     justify-content: center;
     margin-bottom: 30px;
-    margin: 10px;
+    margin: 12px;
+    border: #01464D;
 }
 .invest {
     background-color: #C9C6C66B;
-    border-radius: 10px;
-    padding: 10px;
+    padding: 12px;
 }
 .invest_select {
-    background-color: #0DA980;
-    border-radius: 10px;
-    padding: 10px;
+    background-color: #01464D;
+    padding: 12px;
 }
 .calc {
     background-color: #01464D;
@@ -36,4 +35,21 @@
 }
 .optionsBtn {
     width: 70vw;
+}
+
+.content_invest_line {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 30px;
+    margin-top: -30px;
+}
+.invest_line {
+    background-color: #dcdada6b;
+    padding: 15px;
+    border-bottom: solid #0b856483;
+}
+.invest_select_line {
+    padding: 15px;
+    border: solid #07513d83;
 }

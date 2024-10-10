@@ -7,16 +7,17 @@ import typo from "../../assets/scss/typography.scss"
 import Button from "../../components/Buttons/Button";
 import { Pressable } from "react-native";
 import { getSelic } from "../../services/Rates";
+import { transformFloatUni } from "../../components/Utils/Functions";
 
-function calcRend(type, invest, profitability, months, prefixado, rescue, dividends) {
+function calcRend(type, invest, profitability, months) {
 
   var result;
 
   switch (type) {
     case 'previdencia':
-        result = (invest * (((1 + (profitability/12))**months) - 1)/(profitability/12)) * (1 + (profitability/12));
-        //Taxas e Regime de Tributação
-        break;
+      result = invest*(1 + profitability)**months
+      //Taxas e Regime de Tributação
+      break;
     case 'poupanca':
       result = invest*(1 + profitability)**months
       break;
@@ -33,8 +34,7 @@ function calcRend(type, invest, profitability, months, prefixado, rescue, divide
       result = invest*(1 + (profitability/12))**months
       break;
     case 'variavel':
-      result = (final - invest + dividends) / invest * 100
-      //Dividendos recebidos durante o período
+      result = invest*(1 + profitability)**months
       break;
     default:
       result = 0
@@ -47,17 +47,15 @@ export default function Simulate({ type }) {
   
   const [date, setDate] = useState({ day: '', month: '', year: '' });
   const [invest, setInvest] = useState();
-  const [rescue, setRescue] = useState();
   const [seeResult, setSeeResult] = useState(false);
   const [result, setResult] = useState(0);
   const [profitability, setProfitability] = useState();
-  const [dividends, setDividends] = useState();
   const [prefixado, setPrefixado] = useState(true);
   const [period, setPeriod] = useState(0);
   const [selic, setSelic] = useState(10.75);
   const [taxaIsFixed, setTaxaIsFixed] = useState(false);
-  const [impostRend, setTmpostRend] = useState();
   const [taxaRend, setTaxaRend] = useState('a.a%');
+  const [error, setError] = useState(0);
 
   const month = new Date().getMonth() + 1;
   const year = new Date().getFullYear();
@@ -96,25 +94,47 @@ export default function Simulate({ type }) {
   }, [prefixado]);
 
   function calcResult() {
+
+    setError(0)
+    setSeeResult(false)
+
     var r;
     var months = 0;
-    if(type == 'previdencia')
-      months = Number(date.year) * 12;
-    else {
-      months += Number(date.month);
-      if(type !== 'poupanca') {
-        months += 12 - month;
-        if(Number(date.year) - year > 1) {
-          months += ((Number(date.year) - 1) - year) * 12;
+    
+    if(invest == null || profitability == null){
+      setError(3)
+      
+    } else if((Number(date.year) < year) || (Number(date.year) == year && Number(date.month) <= month) 
+      || Number(date.month) > 12 || Number(date.month) < 1){
+      setError(1)
+
+    } else if(invest <= 0 || profitability <= 0) {
+      setError(2)
+
+    } else {
+
+      var valueInvest = transformFloatUni(invest);
+      var valueProfi = transformFloatUni(profitability);
+
+        if(type == 'previdencia')
+        months = Number(date.year) - year;
+      else {
+        months += Number(date.month);
+        if(type !== 'poupanca') {
+          months += 12 - month;
+          if(Number(date.year) - year > 1) {
+            months += ((Number(date.year) - 1) - year) * 12;
+          }
         }
       }
+      
+      r = calcRend(type, Number(valueInvest), valueProfi/100, months)
+      
+      setPeriod(months)
+      setResult(r)
+      setSeeResult(true)
     }
     
-    r = calcRend(type, Number(invest), profitability/100, months, prefixado, rescue)
-    
-    setPeriod(months)
-    setResult(r)
-    setSeeResult(true)
   }
   
     return (
@@ -184,47 +204,7 @@ export default function Simulate({ type }) {
             value={invest}
             onChangeText={(text) => setInvest(text)}
           />
-          {/* <Text style={typo.spaceAbove}>Quanto você quer resgatar no futuro?</Text>
-          <TextInput
-            style={styles.input}
-            value={rescue}
-            onChangeText={(text) => setRescue(text)}
-          /> */}
         </View>
-
-        {/* {type == 'fundos' &&
-        <>
-          <View style={styles.inputDateV}>
-            <Text style={{ marginRight: 30 }}>Aliquota</Text>
-            <Text style={typo.spaceAbove}>IR</Text>
-          </View>
-          <View style={styles.inputDateV}>
-            <TextInput
-              style={styles.inputDate}
-              value={date.year}
-              onChangeText={(text) => setDate({ ...date, year: text })}
-            />
-
-            <TextInput
-              style={styles.inputDate}
-              value={impostRend}
-              onChangeText={(value) => setIimpostRend(value)}
-            />
-
-          </View>
-        </>
-        } */}
-
-        {/* {type == 'previdencia' &&
-          <View>
-            <Text style={typo.spaceAbove}>Aliquota de Imposto de Renda</Text>
-            <TextInput
-              style={styles.inputDate}
-              value={impostRend}
-              onChangeText={(value) => setIimpostRend(value)}
-            />
-          </View>
-        } */}
 
         <View style={{ marginTop: 30, marginBottom: 20 }}>
           <Button 
@@ -234,10 +214,27 @@ export default function Simulate({ type }) {
         </View>
         {seeResult &&
           <View>
-            <Text style={{ fontSize: '15px' }}>Em {period} meses o resultado estimado é R$ {result} *</Text>
+            <Text style={{ fontSize: '15px' }}>Em {period} {type == 'previdencia' ? "ano(s)" : "mes(es)"} o resultado estimado é R$ {result} *</Text>
             <Text style={typo.spaceAbove}>*Valor Bruto</Text>
+
+          {type == "variavel" &&
+              <Text style={{ marginTop: 30, margin: 15 }}>
+              Projeções de Renda variável devem se basear também em análises como crescimento de lucros, 
+              receita e potencial de mercado ou movimentos futuros do fundo.</Text>}
+            
             {!prefixado &&
               <Text style={{ fontSize: '15px' }}>Com base na Taxa Selic a {profitability} %</Text>}
+          </View>
+        }
+
+        {error > 0 &&
+          <View>
+            {error == 1 &&
+              <Text style={{ fontSize: '15px', color: 'red' }}>Data incorreta</Text>}
+            {error == 2 &&
+              <Text style={{ fontSize: '15px', color: 'red' }}>Valor incorreto</Text>}
+            {error == 3 &&
+              <Text style={{ fontSize: '15px', color: 'red' }}>Preencha todos os campos</Text>}
           </View>
         }
 
